@@ -344,6 +344,56 @@
     .modal-form { display: flex; flex-direction: column; gap: 15px; margin-top: 20px; }
     .modal-form input, .modal-form textarea { background: #1d1d1d; border: 1px solid #333; color: white; padding: 14px; border-radius: 8px; outline: none; }
     .submit-btn { background: #fdd835; color: black; border: none; padding: 15px; border-radius: 8px; font-weight: 700; cursor: pointer; }
+
+
+    @media (max-width: 768px) {
+
+    .hero-section {
+        height: 60vh !important; /* Уменьшаем высоту главного баннера на телефоне */
+        padding-left: 5% !important; /* Сдвигаем текст ближе к центру */
+    }
+
+    .hero-title {
+        font-size: 42px !important; /* Уменьшаем гигантский заголовок "Lotus Cars" */
+    }
+
+    .hero-subtitle {
+        font-size: 14px !important;
+    }
+
+    .section-title, .about-title {
+        font-size: 28px !important; /* Оптимальный размер для чтения с телефона */
+    }
+
+    .video-slider-container {
+        height: 320px !important; /* Делаем высоту слайдера меньше */
+        margin: 20px auto 0 !important;
+    }
+
+    .slider-content-box {
+        padding-left: 20px !important; /* Убираем огромный левый отступ */
+        padding-right: 20px !important;
+        max-width: 100% !important;
+    }
+
+    .slide-title {
+        font-size: 24px !important;
+        margin-bottom: 20px !important;
+    }
+
+    .slider-arrow {
+        width: 40px !important;
+        height: 40px !important;
+        font-size: 20px !important;
+    }
+
+    .modal-content {
+        width: 90% !important;
+        padding: 20px !important;
+        margin: 20px auto !important;
+    }
+}
+
 </style>
 
 <script>
