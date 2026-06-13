@@ -1,0 +1,548 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+
+    body {
+    overflow-x: hidden !important;
+    }
+
+    html, body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: #000;
+    }
+
+    .main-footer {
+        background-color: #050505 !important;
+        border-top: 1px solid #141414 !important;
+        padding: 30px 40px 10px !important;
+        color: #fff !important;
+        font-family: sans-serif !important;
+        text-align: left !important;
+        margin-top: 80px !important;
+
+            width: 100vw !important;
+            max-width: 100% !important;
+            position: relative !important;
+            left: 50% !important;
+            transform: translateX(-50%) !important;
+            box-sizing: border-box !important;
+    }
+    .footer-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 40px;
+        width: 100%;
+    }
+
+    .footer-brand-section .footer-logo {
+        font-size: 28px;
+        font-weight: 800;
+        letter-spacing: 4px;
+        margin: 0 0 10px 0;
+    }
+
+    .footer-brand-section .footer-tagline {
+        color: #444;
+        font-size: 13px;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        margin: 0;
+    }
+
+    .footer-links-section {
+        display: flex;
+        gap: 80px;
+    }
+
+    .footer-link-group h4 {
+        font-size: 13px;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        color: #666;
+        margin: 0 0 20px 0;
+    }
+
+    .footer-link-group a {
+        display: block;
+        color: #888;
+        text-decoration: none;
+        font-size: 14px;
+        margin-bottom: 12px;
+        transition: color 0.2s ease;
+    }
+
+    .footer-link-group a:hover {
+        color: #fdd835;
+    }
+
+    .footer-bottom {
+        max-width: 1100px;
+        margin: 40px auto 0;
+        padding-top: 25px;
+        border-top: 1px solid #141414;
+        text-align: center;
+        color: #444;
+        font-size: 13px;
+    }
+
+
+
+
+
+
+    .search-panel {
+        max-width: 1200px;
+        margin: 20px 0 25px 20px;
+        display: flex;
+        justify-content: flex-start;
+        font-family: sans-serif;
+    }
+    .search-box {
+        display: flex;
+        align-items: center;
+        background-color: #141414 !important;
+        border: 1px solid #333 !important;
+        border-radius: 8px !important;
+        padding: 12px 18px !important;
+        width: 320px;
+        box-sizing: border-box;
+        transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+    .search-box:focus-within {
+        border-color: #fdd835 !important;
+        box-shadow: 0 0 15px rgba(253, 216, 53, 0.2) !important;
+        background-color: #161616 !important;
+    }
+    .search-icon {
+        font-size: 16px;
+        margin-right: 12px;
+        color: #888;
+        user-select: none;
+    }
+    #carSearchInput {
+        background: transparent !important;
+        border: none !important;
+        outline: none !important;
+        color: #ffffff !important;
+        font-size: 15px !important;
+        width: 100%;
+        font-family: sans-serif;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+    #carSearchInput::placeholder {
+        color: #555555 !important;
+        opacity: 1;
+    }
+    .search-panel {
+        max-width: 1200px;
+        margin: 20px 0 25px 20px;
+        display: flex;
+        gap: 15px;
+        flex-wrap: wrap;
+        font-family: sans-serif;
+    }
+    .filter-box select {
+        background-color: #141414 !important;
+        border: 1px solid #333 !important;
+        border-radius: 8px !important;
+        padding: 12px 15px !important;
+        color: #ffffff !important;
+        font-size: 15px !important;
+        outline: none !important;
+        cursor: pointer;
+        height: 100%;
+        transition: all 0.3s ease;
+    }
+    .search-panel {
+        max-width: 1200px;
+        margin: 20px 0 25px 20px;
+        display: flex;
+        gap: 15px;
+        flex-wrap: wrap;
+        font-family: sans-serif;
+    }
+
+    .custom-select-container {
+        position: relative;
+        width: 320px;
+        font-family: sans-serif;
+    }
+
+    .custom-select-trigger {
+        width: 100%;
+        background-color: #141414 !important;
+        border: 1px solid #333 !important;
+        border-radius: 8px !important;
+        padding: 12px 18px !important;
+        color: #ffffff !important;
+        font-size: 15px !important;
+        font-weight: 600 !important;
+        text-align: left;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        outline: none;
+        transition: all 0.3s ease;
+    }
+
+    .custom-select-trigger:hover {
+        border-color: #555 !important;
+        background-color: #161616 !important;
+    }
+
+    .custom-select-container.open .custom-select-trigger {
+        border-color: #fdd835 !important;
+        box-shadow: 0 0 15px rgba(253, 216, 53, 0.2) !important;
+    }
+
+    .custom-arrow {
+        color: #fdd835;
+        font-size: 16px;
+        transition: transform 0.3s ease;
+    }
+
+    .custom-select-container.open .custom-arrow {
+        transform: rotate(180deg);
+    }
+
+    .custom-options-list {
+        position: absolute;
+        top: calc(100% + 5px);
+        left: 0;
+        width: 100%;
+        background-color: #141414;
+        border: 1px solid #2b2b2b;
+        border-radius: 8px;
+        box-shadow: 0 15px 30px rgba(0,0,0,0.7);
+        display: none;
+        flex-direction: column;
+        z-index: 999;
+        overflow: hidden;
+    }
+
+    .custom-select-container.open .custom-options-list {
+        display: flex;
+    }
+    .custom-option {
+        color: #ccc;
+        padding: 12px 18px;
+        font-size: 14px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+
+    .custom-option:hover {
+        background-color: #1c1c1c;
+        color: #fff;
+    }
+
+    .custom-option.active {
+        color: #fdd835;
+        background-color: #1a1a1a;
+        font-weight: 600;
+    }
+    .page-title {
+        font-family: sans-serif;
+        color: #ffffff;
+        font-size: 36px;
+        margin: 30px 0 20px 20px;
+    }
+    .cars-grid {
+        display: flex;
+        gap: 25px;
+        flex-wrap: wrap;
+        padding: 20px;
+        background-color: #0b0b0b;
+    }
+    .car-card {
+        background-color: #141414;
+        border: 1px solid #333;
+        border-radius: 12px;
+        width: 280px;
+        overflow: hidden;
+        transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
+    }
+    .car-card:hover {
+        transform: translateY(-8px);
+        border-color: #fdd835;
+        box-shadow: 0 12px 25px rgba(253, 216, 53, 0.2);
+    }
+    .car-image-wrapper {
+        overflow: hidden;
+        height: 180px;
+        background-color: #000;
+    }
+    .car-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+    }
+    .car-card:hover .car-image {
+        transform: scale(1.08);
+    }
+    .car-info {
+        padding: 20px;
+        font-family: sans-serif;
+    }
+    .car-title {
+        color: #fff;
+        font-size: 20px;
+        margin: 0 0 10px 0;
+        font-weight: 700;
+    }
+    .car-price {
+        color: #fdd835;
+        font-size: 16px;
+        font-weight: 600;
+        margin: 0 0 20px 0;
+    }
+    .car-specs {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 20px;
+        color: #aaa;
+        font-size: 13px;
+    }
+    .card-actions {
+        display: flex;
+        gap: 10px;
+    }
+    .btn-details {
+        flex: 1;
+        text-align: center;
+        background: transparent;
+        color: #fff;
+        border: 1px solid #fff;
+        padding: 12px 0;
+        text-decoration: none;
+        font-size: 12px;
+        font-weight: 600;
+        text-transform: uppercase;
+        border-radius: 6px;
+        transition: all 0.3s ease;
+    }
+    .btn-details:hover {
+        background: #fff;
+        color: #000;
+    }
+    .btn-order {
+        flex: 1;
+        text-align: center;
+        background: #fdd835;
+        color: #000;
+        border: none;
+        padding: 12px 0;
+        font-size: 12px;
+        font-weight: 700;
+        text-transform: uppercase;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    .btn-order:hover {
+        background: #ffeb3b;
+        box-shadow: 0 5px 15px rgba(253, 216, 53, 0.3);
+    }
+    .modal-overlay {
+        position: fixed;
+        top: 0; left: 0; width: 100%; height: 100%;
+        background: rgba(0, 0, 0, 0.85);
+        backdrop-filter: blur(5px);
+        display: none;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+    }
+    .modal-content {
+        background: #141414;
+        border: 1px solid #2b2b2b;
+        padding: 40px;
+        border-radius: 16px;
+        width: 100%;
+        max-width: 400px;
+        position: relative;
+        box-shadow: 0 20px 50px rgba(0,0,0,0.7);
+        font-family: sans-serif;
+    }
+    .modal-content h2 { color: white; margin-top: 0; font-size: 24px; }
+    .close-modal {
+        position: absolute;
+        top: 15px; right: 20px;
+        background: transparent; color: #888;
+        border: none; font-size: 30px; cursor: pointer;
+    }
+    .close-modal:hover { color: white; }
+
+    .modal-form { display: flex; flex-direction: column; gap: 15px; margin-top: 20px; }
+
+    .modal-form input, .modal-form textarea {
+        background: #1d1d1d; border: 1px solid #333;
+        color: white; padding: 14px; border-radius: 8px; outline: none;
+        font-size: 15px;
+    }
+    .modal-form input:focus, .modal-form textarea:focus { border-color: #fdd835; }
+    .modal-form textarea { height: 90px; resize: none; }
+    .submit-btn {
+        background: #fdd835; color: black; border: none;
+        padding: 15px; border-radius: 8px; font-weight: 700; cursor: pointer;
+        text-transform: uppercase; letter-spacing: 0.5px;
+    }
+    .submit-btn:hover { background: #ffeb3b; }
+</style>
+<h1 class="page-title">Our Cars</h1>
+
+<div class="search-panel">
+    <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="carSearchInput" placeholder="Search your Lotus..." onkeyup="filterAndSortCars()">
+    </div>
+
+    <div class="custom-select-container" id="customSelectContainer">
+        <button class="custom-select-trigger" onclick="toggleCustomSelect(event)">
+            <span id="selectedOptionText">Усі моделі Lotus</span>
+            <span class="custom-arrow">▾</span>
+        </button>
+        <div class="custom-options-list">
+            <div class="custom-option active" data-value="all" onclick="selectCustomOption(this)">Усі моделі Lotus</div>
+            <div class="custom-option" data-value="classic" onclick="selectCustomOption(this)">Класичні спорткари</div>
+            <div class="custom-option" data-value="hypercar" onclick="selectCustomOption(this)">Суперкари та гіперкари</div>
+            <div class="custom-option" data-value="practical" onclick="selectCustomOption(this)">Практичні авто</div>
+            <div class="custom-option" data-value="price-asc" onclick="selectCustomOption(this)">Від дешевих до дорогих</div>
+            <div class="custom-option" data-value="price-desc" onclick="selectCustomOption(this)">Від дорогих до чевиих</div>
+        </div>
+    </div>
+</div>
+
+<div class="cars-grid">
+    {% for car in cars %}
+        <div class="car-card" data-category="{{ car.category }}">
+            <div class="car-image-wrapper">
+                <img src="{{ car.image.url }}" alt="{{ car.title }}" class="car-image">
+            </div>
+            <div class="car-info">
+                <h2 class="car-title">{{ car.title }}</h2>
+                <p class="car-price">{{ car.price }} {{ car.currency }}</p>
+
+                <div class="car-specs">
+                    <div class="spec-item">
+                        <span>⚡ {{ car.power }}</span>
+                    </div>
+                    <div class="spec-item">
+                        <span>🕹️ {{ car.transmission }}</span>
+                    </div>
+                    <div class="spec-item">
+                        <span>⏱️ {{ car.acceleration }}</span>
+                    </div>
+                </div>
+                <div class="card-actions">
+                    <a href="/cars/{{ car.id }}/" class="btn-details">Details</a>
+                    <button class="btn-order" onclick="openOrderModal('{{ car.title }}')">Order</button>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+<div id="orderModal" class="modal-overlay">
+    <div class="modal-content">
+        <button class="close-modal" onclick="closeOrderModal()">&times;</button>
+        <h2>Замовити автомобіль</h2>
+        <p id="modalCarName" style="color: #fdd835; font-weight: 700; font-size: 1.2rem; margin: 5px 0 20px;"></p>
+
+        <form method="post" class="modal-form">
+            {% csrf_token %}
+            <input type="hidden" name="car_title" id="hiddenCarTitle">
+
+            <input type="text" name="name" placeholder="Ваше ім'я" required>
+            <input type="tel" name="phone" placeholder="Номер телефону" required>
+            <textarea name="message" placeholder="Я зацікавлений у покупці цього автомобіля..."></textarea>
+            <button type="submit" class="submit-btn">Надіслати заявку</button>
+        </form>
+    </div>
+</div>
+
+<footer class="main-footer">
+    <div class="footer-container">
+        <div class="footer-brand-section">
+            <h3 class="footer-logo">LOTUS</h3>
+            <p class="footer-tagline">For The Drivers.</p>
+        </div>
+
+        <div class="footer-links-section">
+            <div class="footer-link-group">
+                <h4>Models</h4>
+                <a href="/cars/1/">Emira</a>
+                <a href="/cars/2/">Esprit</a>
+                <a href="/cars/3/">Evija</a>
+            </div>
+            <div class="footer-link-group">
+                <h4>Company</h4>
+                <a href="{% url 'heritage' %}">Our Story</a>
+                <a href="/cars/">Motorsport</a>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; 2026 Lotus Project. All rights reserved.</p>
+    </div>
+</footer>
+
+
+
+
+<script>
+    const getEl = id => document.getElementById(id);
+    function openOrderModal(title) { getEl('modalCarName').innerText = title; getEl('hiddenCarTitle').value = title; getEl('orderModal').style.display = 'flex'; }
+    function closeOrderModal() { getEl('orderModal').style.display = 'none'; }
+    function toggleCustomSelect(e) { e.stopPropagation(); getEl('customSelectContainer').classList.toggle('open'); }
+    function selectCustomOption(el) {
+        document.querySelectorAll('.custom-option').forEach(opt => opt.classList.remove('active'));
+        el.classList.add('active');
+        getEl('selectedOptionText').innerText = el.innerText;
+        filterAndSortCars();
+    }
+    window.onclick = (e) => {
+        if (e.target == getEl('orderModal')) closeOrderModal();
+        if (getEl('customSelectContainer') && !getEl('customSelectContainer').contains(e.target)) getEl('customSelectContainer').classList.remove('open');
+    }
+    function filterAndSortCars() {
+        const search = document.getElementById('carSearchInput').value.toLowerCase();
+        const activeOpt = document.querySelector('.custom-option.active');
+        const sortValue = activeOpt ? activeOpt.getAttribute('data-value') : 'all';
+
+        const grid = document.querySelector('.cars-grid');
+        const carCards = Array.from(document.querySelectorAll('.car-card'));
+    carCards.forEach(card => {
+        const title = card.querySelector('.car-title').innerText.toLowerCase();
+        const cardCategory = card.getAttribute('data-category');
+        const matchesSearch = title.includes(search);
+        const isPriceSort = sortValue.startsWith('price-');
+        const matchesCategory = (sortValue === 'all' || isPriceSort || cardCategory === sortValue);
+
+        card.style.display = (matchesSearch && matchesCategory) ? "block" : "none";
+    });
+    if (sortValue === 'price-asc' || sortValue === 'price-desc') {
+        carCards.sort((a, b) => {
+            const priceA = parseInt(a.querySelector('.car-price').innerText.replace(/[^0-9]/g, '')) || 0;
+            const priceB = parseInt(b.querySelector('.car-price').innerText.replace(/[^0-9]/g, '')) || 0;
+
+            if (sortValue === 'price-asc') return priceA - priceB;
+            return priceB - priceA;
+        });
+        carCards.forEach(card => grid.appendChild(card));
+    }
+}
+</script>
+
+{% endblock %}

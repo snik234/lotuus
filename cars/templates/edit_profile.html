@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div style="
+    max-width:500px;
+    margin:auto;
+    background:#111;
+    padding:30px;
+    border-radius:10px;
+">
+
+    <h1>Settings</h1>
+
+    <form method="post" enctype="multipart/form-data">
+
+        {% csrf_token %}
+
+        <p>Avatar</p>
+        {{ form.avatar }}
+
+        <br><br>
+
+        <p>Username</p>
+        {{ form.username }}
+
+        <br><br>
+
+        <p>Email</p>
+        {{ form.email }}
+
+        <br><br>
+
+        <p>Phone</p>
+        {{ form.phone }}
+
+        <br><br>
+
+        <p>Bio</p>
+        {{ form.bio }}
+
+        <br><br>
+
+        <button style="
+            background:#e50914;
+            color:white;
+            border:none;
+            padding:10px 20px;
+            border-radius:5px;
+            cursor:pointer;
+        ">
+            Save changes
+        </button>
+
+    </form>
+
+</div>
+
+{% endblock %}

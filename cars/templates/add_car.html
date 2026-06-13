@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="add-car-container" style="max-width: 700px; margin: 5px auto 60px; padding: 40px; background: #141414; border: 1px solid #222; border-radius: 16px; box-shadow: 0 20px 50px rgba(0,0,0,0.5); font-family: sans-serif;">
+    <h1 style="color: white; font-size: 28px; font-weight: 800; text-align: center; margin-bottom: 10px; letter-spacing: 0.5px;">ДОДАТИ НОВИЙ LOTUS</h1>
+    <p style="color: #666; text-align: center; font-size: 14px; margin-bottom: 35px;">Заповніть характеристики, завантажте фото, і ваш автомобіль миттєво з'явиться в каталозі.</p>
+
+    <form method="post" enctype="multipart/form-data" class="add-car-form" style="display: flex; flex-direction: column; gap: 20px;">
+        {% csrf_token %}
+
+        <div class="form-group">
+            <label style="color: #aaa; font-size: 13px; font-weight: 600; text-transform: uppercase; display: block; margin-bottom: 8px;">Назва моделі</label>
+            <input type="text" name="title" placeholder="Наприклад: Lotus Evija Рекордний" required style="width: 100%; background: #1d1d1d; border: 1px solid #333; color: white; padding: 14px; border-radius: 8px; outline: none; box-sizing: border-box; font-size: 15px;">
+        </div>
+
+        <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 20px;">
+            <div class="form-group">
+                <label style="color: #aaa; font-size: 13px; font-weight: 600; text-transform: uppercase; display: block; margin-bottom: 8px;">Ціна</label>
+                <input type="number" name="price" placeholder="95000" required style="width: 100%; background: #1d1d1d; border: 1px solid #333; color: white; padding: 14px; border-radius: 8px; outline: none; box-sizing: border-box; font-size: 15px;">
+            </div>
+            <div class="form-group">
+                <label style="color: #aaa; font-size: 13px; font-weight: 600; text-transform: uppercase; display: block; margin-bottom: 8px;">Валюта</label>
+                <select name="currency" style="width: 100%; background: #1d1d1d; border: 1px solid #333; color: white; padding: 14px; border-radius: 8px; outline: none; box-sizing: border-box; font-size: 15px; cursor: pointer;">
+                    <option value="USD">$ (USD)</option>
+                    <option value="EUR">€ (EUR)</option>
+                    <option value="UAH">грн (UAH)</option>
+                </select>
+            </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px;">
+            <div class="form-group">
+                <label style="color: #aaa; font-size: 12px; font-weight: 600; text-transform: uppercase; display: block; margin-bottom: 8px;">Потужність</label>
+                <input type="text" name="power" value="400 hp" style="width: 100%; background: #1d1d1d; border: 1px solid #333; color: white; padding: 12px; border-radius: 8px; outline: none; box-sizing: border-box; font-size: 14px;">
+            </div>
+            <div class="form-group">
+                <label style="color: #aaa; font-size: 12px; font-weight: 600; text-transform: uppercase; display: block; margin-bottom: 8px;">Коробка</label>
+                <input type="text" name="transmission" value="Manual" style="width: 100%; background: #1d1d1d; border: 1px solid #333; color: white; padding: 12px; border-radius: 8px; outline: none; box-sizing: border-box; font-size: 14px;">
+            </div>
+            <div class="form-group">
+                <label style="color: #aaa; font-size: 12px; font-weight: 600; text-transform: uppercase; display: block; margin-bottom: 8px;">Розгін 0-100</label>
+                <input type="text" name="acceleration" value="4.3s" style="width: 100%; background: #1d1d1d; border: 1px solid #333; color: white; padding: 12px; border-radius: 8px; outline: none; box-sizing: border-box; font-size: 14px;">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label style="color: #aaa; font-size: 13px; font-weight: 600; text-transform: uppercase; display: block; margin-bottom: 8px;">Тип кузова / Клас</label>
+            <select name="category" style="width: 100%; background: #1d1d1d; border: 1px solid #333; color: white; padding: 14px; border-radius: 8px; outline: none; box-sizing: border-box; font-size: 15px; cursor: pointer;">
+                <option value="classic"> Класичні спорткари</option>
+                <option value="hypercar"> Суперкари та гіперкари</option>
+                <option value="practical"> Практичні авто</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label style="color: #aaa; font-size: 13px; font-weight: 600; text-transform: uppercase; display: block; margin-bottom: 8px;">Опис автомобіля</label>
+            <textarea name="description" placeholder="Розкажіть про стан автомобіля, комплектацію..." required style="width: 100%; background: #1d1d1d; border: 1px solid #333; color: white; padding: 14px; border-radius: 8px; outline: none; box-sizing: border-box; font-size: 15px; font-family: sans-serif; height: 100px; resize: vertical;"></textarea>
+        </div>
+
+        <div class="form-group" style="background: #191919; border: 1px dashed #444; padding: 20px; border-radius: 10px; text-align: center;">
+            <label style="color: #fdd835; font-size: 13px; font-weight: 700; text-transform: uppercase; display: block; margin-bottom: 10px; cursor: pointer;"> Головне зображення автомобіля</label>
+            <input type="file" name="image" required style="color: #888; font-size: 14px;">
+        </div>
+
+        <div class="form-group" style="background: #191919; border: 1px dashed #444; padding: 20px; border-radius: 10px; text-align: center;">
+            <label style="color: #00a2ff; font-size: 13px; font-weight: 700; text-transform: uppercase; display: block; margin-bottom: 10px; cursor: pointer;">📸 Додаткові фото для галереї (Можна вибрати кілька)</label>
+            <input type="file" name="images" multiple style="color: #888; font-size: 14px;"> <!-- Убедись, что тут написано name="images" и стоит multiple -->
+        </div>
+
+        <button type="submit" style="background: #fdd835; color: black; border: none; padding: 16px; border-radius: 8px; font-weight: 700; font-size: 14px; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; margin-top: 10px; transition: all 0.3s ease; box-shadow: 0 5px 15px rgba(253, 216, 53, 0.2);">
+            Опублікувати автомобіль
+        </button>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,132 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="auth-container-wrapper">
+    <div class="auth-card-box">
+
+        <h1 class="auth-main-title">Create account</h1>
+
+        <form method="post" class="auth-custom-form">
+            {% csrf_token %}
+
+            <div class="auth-form-fields-wrapper">
+                {{ form.as_p }}
+            </div>
+
+            <button type="submit" class="auth-action-btn">
+                Register
+            </button>
+        </form>
+
+    </div>
+</div>
+
+<style>
+    .auth-container-wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 75vh;
+        background-color: #000;
+        font-family: sans-serif;
+        padding: 20px;
+        box-sizing: border-box;
+    }
+
+    .auth-card-box {
+        width: 100%;
+        max-width: 420px;
+        background: #0b0b0b;
+        border: 1px solid #1a1a1a;
+        padding: 40px;
+        border-radius: 16px;
+        box-shadow: 0 20px 50px rgba(0,0,0,0.7);
+        box-sizing: border-box;
+    }
+
+    .auth-main-title {
+        color: #fff;
+        font-size: 32px;
+        font-weight: 700;
+        margin: 0 0 30px 0;
+        letter-spacing: -0.5px;
+        text-align: left;
+    }
+
+    .auth-form-fields-wrapper p {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 20px;
+        text-align: left;
+    }
+
+    .auth-form-fields-wrapper p label {
+        color: #666;
+        font-size: 13px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 8px;
+        font-weight: 600;
+    }
+
+    .auth-form-fields-wrapper p input {
+        background-color: #111;
+        border: 1px solid #222;
+        padding: 14px 16px;
+        border-radius: 8px;
+        color: #fff;
+        font-size: 15px;
+        transition: all 0.3s ease;
+        outline: none;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .auth-form-fields-wrapper p input:focus {
+        border-color: #fdd835;
+        background-color: #141414;
+        box-shadow: 0 0 12px rgba(253, 216, 53, 0.1);
+    }
+
+    .auth-form-fields-wrapper .helptext {
+        color: #444;
+        font-size: 12px;
+        margin-top: 5px;
+        line-height: 1.4;
+    }
+
+    .auth-form-fields-wrapper .errorlist {
+        list-style: none;
+        padding: 0;
+        margin: 0 0 10px 0;
+        color: #ff4a4a;
+        font-size: 13px;
+    }
+
+    .auth-action-btn {
+        width: 100%;
+        background-color: transparent;
+        color: #fff;
+        border: 2px solid #fff;
+        padding: 14px;
+        font-size: 14px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+        margin-top: 10px;
+    }
+
+    .auth-action-btn:hover {
+        background-color: #fff;
+        color: #000;
+        transform: translateY(-2px);
+    }
+
+    .auth-action-btn:active {
+        transform: translateY(0);
+    }
+</style>
+{% endblock %}

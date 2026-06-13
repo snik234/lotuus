@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div style="max-width: 900px; margin: auto; display: flex; gap: 50px; padding: 20px;">
+
+    <div style="flex: 1; border-right: 1px solid #333; padding-right: 30px;">
+        <form method="post" enctype="multipart/form-data" id="profile-form">
+            {% csrf_token %}
+
+            <h1 style="margin-bottom: 20px;">{{ request.user.username }}</h1>
+
+            <div style="margin-bottom: 20px;">
+                {% if profile.avatar %}
+                    <img src="{{ profile.avatar.url }}" style="width:150px; height:150px; border-radius:50%; object-fit:cover; display: block; margin-bottom: 10px;">
+                {% endif %}
+                <div class="edit-mode-element" style="display: none;">
+                    <label style="font-weight: bold; display: block; margin-bottom: 5px;">Вибрати фото:</label>
+                    {{ form.avatar }}
+                </div>
+            </div>
+
+            <div style="margin-bottom: 15px;">
+                <label style="font-weight: bold; display: block;">Нікнейм</label>
+                {{ form.username }}
+            </div>
+
+            <div style="margin-bottom: 15px;">
+                <label style="font-weight: bold; display: block;">Email</label>
+                {{ form.email }}
+            </div>
+
+            <div style="margin-bottom: 15px;">
+                <label style="font-weight: bold; display: block;">Phone</label>
+                {{ form.phone }}
+            </div>
+
+            <div style="margin-bottom: 15px;">
+                <label style="font-weight: bold; display: block;">About me</label>
+                {{ form.bio }}
+            </div>
+
+            <div style="margin-top: 20px;">
+                <button type="button" id="edit-btn" onclick="toggleEdit()" style="background: #007bff; color: white; border: none; padding: 10px 25px; border-radius: 5px; cursor: pointer;">
+                    Змінити данні
+                </button>
+
+                <button type="submit" id="save-btn" style="display: none; background: #28a745; color: white; border: none; padding: 10px 25px; border-radius: 5px; cursor: pointer;">
+                    Зберегти зміни
+                </button>
+
+                <button type="button" id="exit_btn" style="display: none; background: #28a745; color: white; border: none; padding: 10px 25px; border-radius: 5px; cursor: pointer;">
+                    Назад
+                </button>
+            </div>
+            <div style="margin-top: 30px; text-align: left;">
+                <a href="/cars/add/" style="display: inline-block; background: #fdd835; color: black; padding: 12px 25px; border-radius: 8px; font-weight: 700; text-decoration: none; text-transform: uppercase; font-family: sans-serif; font-size: 13px; letter-spacing: 0.5px; transition: all 0.3s ease; box-shadow: 0 5px 15px rgba(253, 216, 53, 0.15);">
+                     Додати автомобіль на сайт
+                </a>
+            </div>
+
+        </form>
+
+        <hr style="border: 0; border-top: 1px solid #333; margin: 30px 0;">
+
+        <form method="post" action="/accounts/logout/">
+            {% csrf_token %}
+            <button style="background:#e50914; color:white; border:none; padding:10px 20px; border-radius:5px; cursor:pointer;">
+                Logout
+            </button>
+        </form>
+    </div>
+
+    <div style="flex: 0.5;">
+        <div style="background: #1a1a1a; padding: 20px; border-radius: 10px;">
+            <h2>{{ request.user.username }}</h2>
+            <p style="color: #888;">{{ request.user.email }}</p>
+        </div>
+    </div>
+</div>
+
+<script>
+function toggleEdit() {
+    const form = document.getElementById('profile-form');
+    const inputs = form.querySelectorAll('input:not([type="hidden"]), textarea, select');
+    const editBtn = document.getElementById('edit-btn');
+    const saveBtn = document.getElementById('save-btn');
+    const avatarEdit = document.querySelector('.edit-mode-element');
+
+    if (saveBtn.style.display === 'none') {
+        inputs.forEach(input => input.disabled = false);
+        saveBtn.style.display = 'inline-block';
+        avatarEdit.style.display = 'block';
+        editBtn.innerText = 'Ні, дякую';
+        editBtn.style.background = '#6c757d';
+    } else {
+        location.reload();
+    }
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('profile-form');
+    const inputs = form.querySelectorAll('input:not([type="hidden"]), textarea, select');
+    inputs.forEach(input => input.disabled = true);
+});
+</script>
+{% endblock %}

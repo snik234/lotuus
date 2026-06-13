@@ -1,0 +1,263 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% if messages %}
+    <div class="toast-container">
+        {% for message in messages %}
+            <div class="toast-message animate-toast">
+                <span>✅ {{ message }}</span>
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}
+
+<h1 style="text-align:center; margin: 40px 0 20px; font-weight: 700; color: white;">
+    {{ car.title }}
+</h1>
+
+<div class="main-gallery">
+    <button class="nav-arrow prev" onclick="prevImage()">&#8249;</button>
+    <div class="image-holder">
+        <img id="mainImage" src="{{ car.image.url }}" alt="{{ car.title }}">
+    </div>
+
+    <button class="nav-arrow next" onclick="nextImage()">&#8250;</button>
+</div>
+
+<div style="text-align: center; margin: 30px 0;">
+    <span style="font-size: 2.2rem; font-weight: 800; color: white;">
+        {{ car.price }} {{ car.currency }}
+    </span>
+</div>
+
+<div class="details-text">
+    {{ car.description }}
+</div>
+
+<div class="contact-box" style="max-width: 850px; margin: 40px auto 50px; padding: 40px; background: #111; border: 1px solid #222; border-radius: 14px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); font-family: sans-serif;">
+
+    <div class="seller-card" style="display: flex; align-items: center; gap: 20px; padding-bottom: 25px; margin-bottom: 30px; border-bottom: 1px solid #222; text-align: left;">
+        {% if car.owner.profile.avatar %}
+            <img src="{{ car.owner.profile.avatar.url }}" style="width: 75px; height: 75px; border-radius: 50%; object-fit: cover; border: 2px solid #fdd835; box-shadow: 0 0 15px rgba(253, 216, 53, 0.2);">
+        {% else %}
+            <div style="width: 75px; height: 75px; border-radius: 50%; background: #222; display: flex; align-items: center; justify-content: center; font-size: 28px; border: 2px solid #333; color: #666;">👤</div>
+        {% endif %}
+
+        <div style="flex: 1;">
+            <h3 style="color: white; margin: 0 0 5px 0; font-size: 19px; font-weight: 700;">Продавець: {{ car.owner.username }}</h3>
+
+            <div style="display: flex; gap: 15px; align-items: center; flex-wrap: wrap;">
+                {% if car.owner.profile.phone %}
+                    <span style="color: #fdd835; font-size: 14px; font-weight: 600;"> {{ car.owner.profile.phone }}</span>
+                {% endif %}
+
+                {% if car.owner.profile.telegram_username %}
+                    <a href="https://t.me{{ car.owner.profile.telegram_username }}" target="_blank" style="color: #00a2ff; text-decoration: none; font-size: 12px; font-weight: 700; background: rgba(0, 162, 255, 0.1); padding: 4px 10px; border-radius: 6px; border: 1px solid rgba(0, 162, 255, 0.2); transition: all 0.3s ease;">
+                         Написати в Telegram
+                    </a>
+                {% endif %}
+            </div>
+
+            {% if car.owner.profile.bio %}
+                <p style="color: #666; margin: 8px 0 0 0; font-size: 13px; font-style: italic;">"{{ car.owner.profile.bio }}"</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <h2 style="color: white; margin-bottom: 10px; text-align: center; font-weight: 700; font-size: 22px; letter-spacing: 0.5px;">Замовити зворотній дзвінок</h2>
+    <p style="color: #666; text-align: center; font-size: 14px; margin-bottom: 25px;">Залиште свої контакти, і ми зв'яжемося з вами найближчим часом.</p>
+
+    <form method="post" class="modern-form">
+        {% csrf_token %}
+        <div class="row">
+            <input type="text" name="name" placeholder="Ваше ім'я" required>
+            <input type="text" name="phone" placeholder="Номер телефону" required>
+        </div>
+        <textarea name="message" placeholder="Я зацікавлений у купівлі цього Lotus. Коли вам зручно зателефонувати?"></textarea>
+        <button type="submit" class="submit-btn">Замовити дзвінок</button>
+    </form>
+</div>
+
+<style>
+    .main-gallery {
+        position: relative;
+        max-width: 1000px;
+        margin: 0 auto;
+        background: #000;
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+        border: 1px solid #1a1a1a;
+    }
+
+    .image-holder img {
+        width: 100%;
+        height: auto;
+        display: block;
+        transition: opacity 0.3s ease-in-out;
+    }
+    .nav-arrow {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 45px;
+        height: 45px;
+        background: rgba(0, 0, 0, 0.5);
+        color: white;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        font-size: 20px;
+        cursor: pointer;
+        z-index: 10;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+    }
+    .nav-arrow:hover {
+        background: #fdd835;
+        color: #000;
+        border-color: #fdd835;
+        box-shadow: 0 0 15px rgba(253, 216, 53, 0.4);
+    }
+    .prev { left: 20px; }
+    .next { right: 20px; }
+
+    .details-text {
+        max-width: 850px;
+        margin: 0 auto 30px;
+        padding: 40px;
+        background: #111;
+        border: 1px solid #222;
+        border-radius: 14px;
+        line-height: 1.8;
+        color: #cccccc;
+        font-family: sans-serif;
+        font-size: 16px;
+        white-space: pre-line;
+        box-shadow: inset 0 0 20px rgba(0,0,0,0.4);
+    }
+
+    .contact-box {
+        max-width: 850px;
+        margin: 0 auto 50px;
+        padding: 40px;
+        background: #111;
+        border: 1px solid #222;
+        border-radius: 14px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+
+    .modern-form { display: flex; flex-direction: column; gap: 20px; }
+    .row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+
+    .modern-form input, .modern-form textarea {
+        background: #161616;
+        border: 1px solid #2b2b2b;
+        color: white;
+        padding: 16px;
+        border-radius: 8px;
+        font-size: 15px;
+        outline: none;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .modern-form input:focus, .modern-form textarea:focus {
+        border-color: #fdd835;
+        box-shadow: 0 0 8px rgba(253, 216, 53, 0.15);
+    }
+
+    .modern-form textarea {
+        height: 120px;
+        resize: vertical;
+    }
+
+    .submit-btn {
+        background: #fdd835;
+        color: #000;
+        padding: 18px;
+        border: none;
+        border-radius: 8px;
+        font-weight: 700;
+        font-size: 15px;
+        letter-spacing: 1px;
+        cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+
+    .submit-btn:hover {
+        background: #ffeb3b;
+        transform: translateY(-2px);
+        box-shadow: 0 10px 20px rgba(253, 216, 53, 0.25);
+    }
+    .submit-btn:active {
+        transform: translateY(0);
+    }
+
+    .toast-container {
+        position: fixed;
+        top: 30px;
+        right: 30px;
+        z-index: 9999;
+    }
+
+    .toast-message {
+        background: #141414;
+        color: #fff;
+        border-left: 4px solid #fdd835;
+        padding: 15px 25px;
+        border-radius: 6px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        font-family: sans-serif;
+        font-weight: 600;
+    }
+
+    @keyframes slideIn {
+        from { transform: translateX(120%); opacity: 0; }
+        to { transform: translateX(0); opacity: 1; }
+    }
+
+    .animate-toast {
+        animation: slideIn 0.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+    }
+
+
+</style>
+
+<script>
+    let images = [
+        "{{ car.image.url }}",
+        {% for img in car.images.all %}
+            "{{ img.image.url }}",
+        {% endfor %}
+    ];
+
+    let index = 0;
+    function showImage() {
+        const img = document.getElementById("mainImage");
+        img.style.opacity = 0;
+        setTimeout(() => {
+            img.src = images[index];
+            img.style.opacity = 1;
+        }, 200);
+    }
+
+    function nextImage() { index = (index + 1) % images.length; showImage(); }
+    function prevImage() { index = (index - 1 + images.length) % images.length; showImage(); }
+
+    setInterval(nextImage, 6000);
+
+
+    setTimeout(() => {
+        const toast = document.querySelector('.toast-container');
+        if (toast) {
+            toast.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            toast.style.opacity = '0';
+            toast.style.transform = 'translateX(100%)';
+            setTimeout(() => toast.remove(), 500);
+        }
+    }, 4000);
+</script>
+
+{% endblock %}

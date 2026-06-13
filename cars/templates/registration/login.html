@@ -1,0 +1,118 @@
+<div class="login-wrapper">
+    <div class="login-card">
+        <h2 class="login-title">Login</h2>
+        
+        <form method="post" class="login-form">
+            {% csrf_token %}
+            
+            <!-- Если вы выводите форму через {{ form.as_p }}, лучше расписать поля вручную для красоты -->
+            <div class="input-group">
+                <label for="id_username">Username</label>
+                <input type="text" name="username" id="id_username" placeholder="Enter your username" required>
+            </div>
+            
+            <div class="input-group">
+                <label for="id_password">Password</label>
+                <input type="password" name="password" id="id_password" placeholder="Enter your password" required>
+            </div>
+            
+            <button type="submit" class="login-submit-btn">Sign In</button>
+        </form>
+    </div>
+</div>
+
+<style>
+
+    html, body {
+    margin: 0;
+    padding: 0;
+    background-color: #000 !important;
+    width: 100%;
+    height: 100%;
+    }
+
+    .auth-container-wrapper {
+        min-height: 100vh !important;
+    }
+
+    .login-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+    background-color: #000;
+    font-family: sans-serif;
+    padding: 20px;
+    }
+
+    .login-card {
+        background: #0b0b0b;
+        border: 1px solid #1a1a1a;
+        padding: 40px;
+        border-radius: 16px;
+        width: 100%;
+        max-width: 400px;
+        box-shadow: 0 20px 50px rgba(0,0,0,0.7);
+    }
+
+    .login-title {
+        color: #fff;
+        font-size: 32px;
+        font-weight: 700;
+        margin: 0 0 30px 0;
+        letter-spacing: -0.5px;
+    }
+
+    .input-group {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 20px;
+        text-align: left;
+    }
+
+    .input-group label {
+        color: #666;
+        font-size: 13px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 8px;
+    }
+
+    .input-group input {
+        background-color: #111;
+        border: 1px solid #222;
+        padding: 14px 16px;
+        border-radius: 8px;
+        color: #fff;
+        font-size: 15px;
+        transition: all 0.3s ease;
+        outline: none;
+    }
+
+    .input-group input:focus {
+        border-color: #fdd835;
+        background-color: #141414;
+        box-shadow: 0 0 10px rgba(253, 216, 53, 0.1);
+    }
+
+    .login-submit-btn {
+        width: 100%;
+        background-color: transparent;
+        color: #fff;
+        border: 2px solid #fff;
+        padding: 14px;
+        font-size: 14px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        margin-top: 10px;
+    }
+
+    .login-submit-btn:hover {
+        background-color: #fff;
+        color: #000;
+    }
+</style>

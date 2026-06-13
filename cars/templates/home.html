@@ -1,0 +1,416 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="hero-section">
+    <video autoplay muted loop playsinline class="hero-video">
+        <source src="{% static 'videos/emira.mp4' %}" type="video/mp4">
+    </video>
+    <div class="hero-content">
+        <h1 class="hero-title">Lotus Cars</h1>
+        <p class="hero-subtitle">PURE PERFORMANCE PEDIGREE SINCE 1948</p>
+        <a href="/cars/" class="hero-btn">Explore Models</a>
+    </div>
+</div>
+
+<div class="home-models-preview">
+    <h2 class="section-title">The Future of Driving</h2>
+    <p class="section-text" style="margin-bottom: 45px;">
+        Discover the new era of Lotus performance — from the track-tuned Emira to the pure electric hyper-SUV Eletre.
+    </p>
+
+    <div class="video-slider-container">
+
+        <div class="slider-video-wrapper">
+            <video id="sliderVideo" autoplay muted loop playsinline src="" style="opacity: 0; transition: opacity 0.4s ease-in-out;"></video>
+            <div class="video-overlay"></div>
+        </div>
+
+        <button class="slider-arrow arrow-prev" onclick="changeSlide(-1)">‹</button>
+        <button class="slider-arrow arrow-next" onclick="changeSlide(1)">›</button>
+
+        <div class="slider-content-box" id="sliderContentBox" style="opacity: 0; transition: opacity 0.3s ease-in-out;">
+            <span id="slideBadge" class="slide-status-badge">• LOADING</span>
+            <h1 id="slideTitle" class="slide-title" style="margin-bottom: 35px;">Lotus Model</h1>
+
+            <div class="slide-actions">
+                <a id="slideDetailsBtn" href="#" class="btn-details">Details</a>
+                <button id="slideOrderBtn" class="btn-order" onclick="openOrderModalFromSlider()">Order</button>
+            </div>
+        </div>
+    </div>
+
+    <div style="text-align: center; margin-top: 50px;">
+        <a href="/cars/" class="btn-view-all">VIEW ALL MODELS &rarr;</a>
+    </div>
+
+    <div class="about-lotus-section">
+    <div class="about-text-content">
+        <h2 class="about-title">The Spirit of Lotus</h2>
+        <p class="about-description">
+            Lotus — це не просто автомобіль, це філософія безкомпромісного драйву. Заснований у 1948 році геніальним інженером Коліном Чепменом, бренд завоював 7 титулів у Формулі-1 та назавжди змінив світ автоспорту. Ми створюємо машини, які не просто їдуть, а ідеально підкоряються кожному вашому руху. Від легендарної ретро-класики до футуристичних електричних гіперкарів — кожен Lotus дарує чистий, концентрований адреналін.
+        </p>
+    </div>
+
+
+    <div class="about-gallery-grid">
+        <div class="gallery-column-card">
+            <!-- Укажи свои картинки из папки static -->
+            <img src="https://i.pinimg.com/1200x/99/1c/ee/991cee74a088c33634fa5a5fe2533185.jpg" alt="Lotus Track">
+        </div>
+        <div class="gallery-column-card">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/f/f0/Colin_Chapman_%281965%29.jpg" alt="Lotus Detail">
+        </div>
+        <div class="gallery-column-card">
+            <img src="https://i.pinimg.com/736x/6c/a2/12/6ca212c28e687ed51381ae74d753c8cc.jpg" alt="Lotus Steering Wheel">
+        </div>
+    </div>
+
+    <div class="lotus-bottom-text">
+        <p>
+            Сьогодні Lotus продовжує розсувати межі можливого, поєднуючи легендарну керованість із технологіями майбутнього. Кожен автомобіль створюється з увагою до найменших деталей, щоб забезпечити водієві максимальний зв'язок із дорогою та неповторні емоції від кожної поїздки.
+        </p>
+    </div>
+
+</div>
+
+
+</div>
+
+
+
+<div id="orderModal" class="modal-overlay">
+    <div class="modal-content">
+        <button class="close-modal" onclick="closeOrderModal()">&times;</button>
+        <h2>Замовити автомобіль</h2>
+        <p id="modalCarName" style="color: #fdd835; font-weight: 700; font-size: 1.2rem; margin: 5px 0 20px; font-family: sans-serif;"></p>
+
+        <form method="post" class="modal-form">
+            {% csrf_token %}
+            <input type="hidden" name="car_title" id="hiddenCarTitle">
+            <input type="text" name="name" placeholder="Ваше ім'я" required>
+            <input type="tel" name="phone" placeholder="Номер телефону" required>
+            <textarea name="message" placeholder="Я зацікавлений у покупці цього автомобіля..."></textarea>
+            <button type="submit" class="submit-btn">Надіслати заявку</button>
+        </form>
+    </div>
+</div>
+
+<footer class="main-footer">
+    <div class="footer-container">
+        <div class="footer-brand-section">
+            <h3 class="footer-logo">LOTUS</h3>
+            <p class="footer-tagline">For The Drivers.</p>
+        </div>
+
+        <div class="footer-links-section">
+            <div class="footer-link-group">
+                <h4>Models</h4>
+                <a href="/cars/1/">Emira</a>
+                <a href="/cars/2/">Esprit</a>
+                <a href="/cars/3/">Evija</a>
+            </div>
+            <div class="footer-link-group">
+                <h4>Company</h4>
+                <a href="{% url 'heritage' %}">Our Story</a>
+                <a href="/cars/">Motorsport</a>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; 2026 Lotus Project. All rights reserved.</p>
+    </div>
+</footer>
+
+
+<style>
+
+    .lotus-bottom-text {
+        max-width: 800px;
+        margin: 60px auto 40px;
+        text-align: center;
+        padding: 0 20px;
+    }
+
+    .lotus-bottom-text p {
+        color: #888;
+        font-size: 16px;
+        line-height: 1.8;
+        font-family: sans-serif;
+    }
+
+    .main-footer {
+        background-color: #050505;
+        border-top: 1px solid #141414;
+        padding: 60px 40px 30px;
+        color: #fff;
+        margin-top: 80px;
+        font-family: sans-serif;
+        text-align: left;
+    }
+
+    .footer-container {
+        max-width: 1100px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 40px;
+    }
+
+    .footer-brand-section .footer-logo {
+        font-size: 28px;
+        font-weight: 800;
+        letter-spacing: 4px;
+        margin: 0 0 10px 0;
+    }
+
+    .footer-brand-section .footer-tagline {
+        color: #444;
+        font-size: 13px;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        margin: 0;
+    }
+
+    .footer-links-section {
+        display: flex;
+        gap: 80px;
+    }
+
+    .footer-link-group h4 {
+        font-size: 13px;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        color: #666;
+        margin: 0 0 20px 0;
+    }
+
+    .footer-link-group a {
+        display: block;
+        color: #888;
+        text-decoration: none;
+        font-size: 14px;
+        margin-bottom: 12px;
+        transition: color 0.2s ease;
+    }
+
+    .footer-link-group a:hover {
+        color: #fdd835;
+    }
+
+    .footer-bottom {
+        max-width: 1100px;
+        margin: 40px auto 0;
+        padding-top: 25px;
+        border-top: 1px solid #141414;
+        text-align: center;
+        color: #444;
+        font-size: 13px;
+    }
+
+    .about-lotus-section {
+        max-width: 1100px;
+        margin: 80px auto 40px;
+        padding: 0 20px;
+        font-family: sans-serif;
+    }
+
+    .about-text-content {
+        text-align: center;
+        max-width: 800px;
+        margin: 0 auto 50px;
+    }
+
+    .about-title {
+        color: #fff;
+        font-size: 36px;
+        font-weight: 700;
+        margin: 0 0 20px 0;
+        letter-spacing: -0.5px;
+    }
+
+    .about-description {
+        color: #888;
+        font-size: 16px;
+        line-height: 1.7;
+        margin: 0;
+    }
+
+    .about-gallery-grid {
+        display: flex;
+        gap: 20px;
+        justify-content: center;
+        width: 100%;
+    }
+
+    .gallery-column-card {
+        flex: 1;
+        height: 480px;
+        border-radius: 14px;
+        overflow: hidden;
+        background-color: #111;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+        border: 1px solid #222;
+        transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+
+    .gallery-column-card:hover {
+        transform: translateY(-8px);
+        border-color: #fdd835;
+        box-shadow: 0 15px 30px rgba(253, 216, 53, 0.15);
+    }
+
+    .gallery-column-card img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        opacity: 0.85;
+        transition: opacity 0.3s ease;
+    }
+
+    .gallery-column-card:hover img {
+        opacity: 1;
+    }
+
+    @media (max-width: 768px) {
+        .about-gallery-grid {
+            flex-direction: column;
+            gap: 25px;
+        }
+        .gallery-column-card {
+            height: 380px;
+        }
+    }
+
+    .hero-section { position: relative; width: 100%; height: 75vh; background: #000; display: flex; align-items: center; padding-left: 8%; box-sizing: border-box; overflow: hidden; }
+    .hero-video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; opacity: 0.6; }
+    .hero-content { position: relative; z-index: 10; font-family: sans-serif; text-align: left; }
+    .hero-title { color: #fff; font-size: 70px; font-weight: 800; margin: 0 0 10px; }
+    .hero-subtitle { color: #ccc; font-size: 18px; letter-spacing: 1px; margin: 0 0 35px; text-transform: uppercase; }
+    .hero-btn { display: inline-block; color: #fff; border: 2px solid #fff; padding: 14px 35px; font-size: 13px; font-weight: 700; text-decoration: none; text-transform: uppercase; border-radius: 6px; transition: all 0.3s ease; }
+    .hero-btn:hover { background: #fff; color: #000; }
+
+    .home-models-preview { background-color: #000; padding: 80px 20px; text-align: center; font-family: sans-serif; }
+    .section-title { color: #fff; font-size: 38px; font-weight: 700; margin: 0 0 15px; }
+    .section-text { color: #888; font-size: 16px; max-width: 650px; margin: 0 auto; line-height: 1.6; }
+
+    .video-slider-container {
+        position: relative;
+        max-width: 1100px;
+        height: 480px;
+        margin: 40px auto 0;
+        background-color: #111;
+        border: 1px solid #222;
+        border-radius: 16px;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        text-align: left;
+        box-shadow: 0 20px 50px rgba(0,0,0,0.7);
+    }
+    .slider-video-wrapper { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; }
+    .slider-video-wrapper video { width: 100%; height: 100%; object-fit: cover; transition: opacity 0.25s ease-in-out; }
+    .video-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(90deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.4) 60%, rgba(0,0,0,0.85) 100%); }
+
+    .slider-content-box { position: relative; z-index: 10; padding-left: 60px; max-width: 500px; }
+    .slide-status-badge { display: inline-block; padding: 6px 12px; border-radius: 4px; font-size: 10px; font-weight: 800; letter-spacing: 0.5px; margin-bottom: 15px; }
+
+    .badge-yellow { background: rgba(253, 216, 53, 0.9) !important; color: #000 !important; }
+    .badge-orange { background: rgba(255, 110, 0, 0.9) !important; color: #fff !important; box-shadow: 0 0 15px rgba(255, 110, 0, 0.4) !important; }
+    .badge-blue { background: rgba(0, 162, 255, 0.9) !important; color: #fff !important; box-shadow: 0 0 15px rgba(0, 162, 255, 0.4) !important; }
+
+    .slide-title { color: #fff; font-size: 46px; font-weight: 800; margin: 0; }
+    .slide-actions { display: flex; gap: 12px; width: 320px; }
+
+    .btn-details, .btn-order { flex: 1; text-align: center; padding: 13px 0; font-size: 12px; font-weight: 700; text-transform: uppercase; border-radius: 6px; transition: all 0.3s ease; text-decoration: none; }
+    .btn-details { background: transparent; color: #fff; border: 1px solid #fff; }
+    .btn-details:hover { background: #fff; color: #000; }
+    .btn-order { background: #fdd835; color: #000; border: none; cursor: pointer; }
+    .btn-order:hover { background: #ffeb3b; }
+
+    .slider-arrow { position: absolute; top: 50%; transform: translateY(-50%); width: 45px; height: 45px; background: rgba(0, 0, 0, 0.6); color: white; border: 1px solid rgba(255, 255, 255, 0.1); font-size: 22px; cursor: pointer; z-index: 20; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease; outline: none; }
+    .slider-arrow:hover { background: #fdd835; color: #000; border-color: #fdd835; box-shadow: 0 0 15px rgba(253, 216, 53, 0.4); }
+    .arrow-prev { left: 20px; }
+    .arrow-next { right: 20px; }
+
+    .btn-view-all { display: inline-block; color: #fdd835; text-decoration: none; font-weight: 700; font-size: 14px; border-bottom: 2px solid transparent; padding-bottom: 5px; }
+    .btn-view-all:hover { color: #fff; border-color: #fdd835; }
+
+    .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(5px); display: none; justify-content: center; align-items: center; z-index: 1000; }
+    .modal-content { background: #141414; border: 1px solid #2b2b2b; padding: 40px; border-radius: 16px; width: 100%; max-width: 400px; position: relative; text-align: left;}
+    .modal-content h2 { color: white; margin-top: 0; font-family: sans-serif;}
+    .close-modal { position: absolute; top: 15px; right: 20px; background: transparent; color: #888; border: none; font-size: 30px; cursor: pointer; }
+    .modal-form { display: flex; flex-direction: column; gap: 15px; margin-top: 20px; }
+    .modal-form input, .modal-form textarea { background: #1d1d1d; border: 1px solid #333; color: white; padding: 14px; border-radius: 8px; outline: none; }
+    .submit-btn { background: #fdd835; color: black; border: none; padding: 15px; border-radius: 8px; font-weight: 700; cursor: pointer; }
+</style>
+
+<script>
+    const slidesData = [
+        {% for car in cars %}
+        {
+            title: "{{ car.title }}",
+            detailsUrl: "/cars/{{ car.id }}/",
+            videoUrl: "{% if 'esprit' in car.title.lower %}{% static 'videos/lotus_esprit_se.mp4' %}{% elif 'evija' in car.title.lower %}{% static 'videos/evija.mp4' %}{% else %}{% static 'videos/emira_first.mp4' %}{% endif %}",
+            badgeText: "{% if 'esprit' in car.title.lower %}• CLASSIC LEGEND{% elif 'eletre' in car.title.lower %}• 100% ELECTRIC{% else %}• TRACK READY{% endif %}",
+            badgeClass: "{% if 'esprit' in car.title.lower %}badge-orange{% elif 'eletre' in car.title.lower %}badge-blue{% else %}badge-yellow{% endif %}"
+        }{% if not forloop.last %},{% endif %}
+        {% endfor %}
+    ];
+
+    let currentSlideIndex = 0;
+    function updateSlider() {
+        if (slidesData.length === 0) return;
+        const currentData = slidesData[currentSlideIndex];
+        const videoEl = document.getElementById('sliderVideo');
+        const contentBox = document.getElementById('sliderContentBox');
+
+        if (videoEl) videoEl.style.opacity = 0;
+        if (contentBox) contentBox.style.opacity = 0;
+
+        setTimeout(() => {
+            if (videoEl) videoEl.src = currentData.videoUrl;
+
+            const titleEl = document.getElementById('slideTitle');
+            const detailsBtn = document.getElementById('slideDetailsBtn');
+            const badgeEl = document.getElementById('slideBadge');
+
+            if (titleEl) titleEl.innerText = currentData.title;
+            if (detailsBtn) detailsBtn.href = currentData.detailsUrl;
+
+            if (badgeEl) {
+                badgeEl.innerText = currentData.badgeText;
+                badgeEl.className = "slide-status-badge " + currentData.badgeClass;
+            }
+
+            if (videoEl) videoEl.style.opacity = 1;
+            if (contentBox) contentBox.style.opacity = 1;
+        }, 150);
+    }
+    function changeSlide(direction) {
+        currentSlideIndex = (currentSlideIndex + direction + slidesData.length) % slidesData.length;
+        updateSlider();
+    }
+    function openOrderModalFromSlider() {
+        const currentData = slidesData[currentSlideIndex];
+        const modalCarName = document.getElementById('modalCarName');
+        const hiddenCarTitle = document.getElementById('hiddenCarTitle');
+        const orderModal = document.getElementById('orderModal');
+
+        if (modalCarName) modalCarName.innerText = currentData.title;
+        if (hiddenCarTitle) hiddenCarTitle.value = currentData.title;
+        if (orderModal) orderModal.style.display = 'flex';
+    }
+    function closeOrderModal() {
+        const orderModal = document.getElementById('orderModal');
+        if (orderModal) orderModal.style.display = 'none';
+    }
+    window.onclick = function(event) {
+        const modal = document.getElementById('orderModal');
+        if (event.target == modal) modal.style.display = 'none';
+    }
+    setTimeout(updateSlider, 100);
+</script>
+
+{% endblock %}

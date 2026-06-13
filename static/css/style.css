@@ -1,0 +1,456 @@
+body {
+    margin: 0;
+    background: #0b0b0b;
+    color: white;
+    font-family: Arial, sans-serif;
+    padding-top: 80px;
+}
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 40px;
+    background: #000000;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    box-sizing: border-box;
+    z-index: 1000;
+    border-bottom: 1px solid #222;
+}
+nav a {
+    color: #ffffff;
+    text-decoration: none;
+    font-family: sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    margin-left: 20px;
+    letter-spacing: 0.5px;
+    position: relative;
+    padding: 5px 0;
+    transition: color 0.3s ease;
+}
+
+nav a:hover {
+    color: #fdd835;
+}
+nav a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 50%;
+    background-color: #fdd835;
+    transition: width 0.3s ease, left 0.3s ease;
+}
+
+nav a:hover::after {
+    width: 100%;
+    left: 0;
+}
+
+nav a img {
+    position: relative;
+    z-index: 2;
+}
+nav a:has(img):hover::after, nav a:first-of-type:has(img):hover::after {
+    width: 0 !important;
+}
+nav button img {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+}
+nav button:hover img {
+    border-color: #fdd835;
+    transform: scale(1.05);
+}
+.page-title {
+    font-family: 'Inter', sans-serif;
+    color: #ffffff;
+    font-size: 36px;
+    margin: 40px 0 20px 50px;
+}
+.cars-grid {
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap;
+    padding: 0 50px;
+    background-color: #0b0b0b;
+}
+.car-card {
+    background-color: #141414;
+    border: 1px solid #222;
+    border-radius: 12px;
+    width: 280px;
+    overflow: hidden;
+    transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1),
+                box-shadow 0.4s ease,
+                border-color 0.4s ease;
+}
+.car-card:hover {
+    transform: translateY(-8px);
+    border-color: #fdd835;
+    box-shadow: 0 12px 25px rgba(253, 216, 53, 0.15);
+}
+.car-image-wrapper {
+    overflow: hidden;
+    height: 180px;
+    background-color: #000;
+}
+.car-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+.car-card:hover .car-image {
+    transform: scale(1.08);
+}
+.car-info {
+    padding: 20px;
+    font-family: 'Inter', sans-serif;
+}
+.car-title {
+    color: #fff;
+    font-size: 20px;
+    margin: 0 0 10px 0;
+    font-weight: 700;
+}
+.car-price {
+    color: #fdd835;
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0 0 20px 0;
+}
+.btn-details {
+    display: block;
+    text-align: center;
+    background: transparent;
+    color: #fff;
+    border: 1px solid #fff;
+    padding: 12px 0;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+}
+.btn-details:hover {
+    background: #fff;
+    color: #000;
+}
+.car-specs {
+    display: flex;
+    justify-content: space-between;
+    margin: 15px 0 20px 0;
+    padding-top: 15px;
+    border-top: 1px solid #222;
+}
+.spec-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 13px;
+    color: #aaaaaa;
+}
+#profileSidebar {
+    position: fixed;
+    top: 0;
+    right: -400px;
+    width: 350px;
+    height: 100%;
+    background: #111;
+    transition: 0.3s;
+    padding: 20px;
+    z-index: 1001;
+    border-left: 1px solid #333;
+    box-sizing: border-box;
+}
+#profileSidebar button {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    border: none;
+}
+#overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    display: none;
+    z-index: 999;
+}
+.hero-section {
+    display: flex;
+    align-items: center;
+    min-height: calc(100vh - 120px);
+    padding-left: 40px;
+        background: linear-gradient(90deg, #0b0b0b 30%, rgba(11,11,11,0.5) 100%),
+                url('/static/images/hero-lotus.jpg') no-repeat center right;
+    background-size: cover;
+}
+.hero-content {
+    max-width: 600px;
+}
+.hero-title {
+    font-size: 64px;
+    font-weight: 800;
+    margin: 0 0 10px 0;
+    letter-spacing: -1px;
+}
+.hero-subtitle {
+    font-size: 24px;
+    color: #cccccc;
+    margin: 0 0 40px 0;
+}
+.hero-btn {
+    display: inline-block;
+    background: transparent;
+    color: #ffffff;
+    border: 2px solid #ffffff;
+    padding: 15px 35px;
+    font-size: 16px;
+    font-weight: 700;
+    text-transform: uppercase;
+    text-decoration: none;
+    letter-spacing: 1px;
+    border-radius: 6px;
+    transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+}
+.hero-btn:hover {
+    background: #fdd835;
+    color: #000000;
+    border-color: #fdd835;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(253, 216, 53, 0.3);
+}
+
+ner {
+    position: relative;
+    width: 100%;
+    height: calc(100vh - 80px);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    padding-left: 50px;
+    box-sizing: border-box;
+}
+
+
+.search-panel {
+        max-width: 1200px;
+        margin: 20px 0 20px 20px;
+        display: flex;
+        justify-content: flex-start;
+    }
+
+    .search-box {
+        position: relative;
+        display: flex;
+        align-items: center;
+        background-color: #141414;
+        border: 1px solid #333;
+        border-radius: 8px;
+        padding: 5px 15px;
+        width: 300px;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .search-box:focus-within {
+        border-color: #fdd835;
+        box-shadow: 0 0 12px rgba(253, 216, 53, 0.15);
+    }
+
+    .search-icon {
+        font-size: 16px;
+        margin-right: 10px;
+        color: #666;
+    }
+
+    #carSearchInput {
+        background: transparent;
+        border: none;
+        color: white;
+        font-size: 15px;
+        outline: none;
+        width: 100%;
+        font-family: sans-serif;
+    }
+
+    #carSearchInput::placeholder {
+        color: #555;
+    }
+
+
+
+.hero-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+    opacity: 0.45;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+}
+
+.hero-title {
+    font-size: 72px;
+    font-weight: 800;
+    margin: 0 0 10px 0;
+}
+
+.hero-subtitle {
+    font-size: 24px;
+    color: #e0e0e0;
+    margin: 0 0 40px 0;
+}
+
+.home-models-preview {
+    background-color: #0b0b0b;
+    padding: 100px 50px;
+    text-align: center;
+}
+
+.section-title {
+    font-size: 42px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    letter-spacing: -0.5px;
+}
+
+.section-text {
+    font-size: 18px;
+    color: #888888;
+    max-width: 700px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+
+.operator-widget {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 99999; /* Поверх всех элементов сайта */
+    font-family: sans-serif;
+}
+
+.operator-btn {
+    width: 60px;
+    height: 60px;
+    background: #fdd835;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 10px 25px rgba(253, 216, 53, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.operator-btn:hover {
+    transform: scale(1.1);
+}
+
+.chat-icon {
+    font-size: 24px;
+    color: #000;
+}
+
+.chat-popup {
+    position: absolute;
+    bottom: 80px;
+    right: 0;
+    width: 300px;
+    background: #141414;
+    border: 1px solid #2b2b2b;
+    border-radius: 16px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.6);
+    display: none;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.chat-header {
+    background: #1a1a1a;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #2b2b2b;
+}
+
+.operator-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.operator-avatar {
+    font-size: 22px;
+    background: #222;
+    padding: 5px;
+    border-radius: 50%;
+}
+
+.close-chat {
+    background: transparent;
+    border: none;
+    color: #888;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.close-chat:hover {
+    color: #fff;
+}
+
+.chat-body {
+    padding: 20px;
+    color: #ccc;
+    font-size: 14px;
+    line-height: 1.5;
+    background: #111;
+    text-align: left;
+}
+
+.chat-footer {
+    padding: 15px;
+    background: #1a1a1a;
+    text-align: center;
+}
+
+.tg-chat-btn {
+    display: block;
+    background: #fdd835;
+    color: #000;
+    text-decoration: none;
+    padding: 12px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 13px;
+    transition: background 0.3s ease;
+}
+
+.tg-chat-btn:hover {
+    background: #ffeb3b;
+}

@@ -1,0 +1,181 @@
+{% load static %}
+<html>
+<head>
+    <title>Lotus Project</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <style>
+        .operator-widget {
+            position: fixed !important;
+            bottom: 30px !important;
+            right: 30px !important;
+            z-index: 999999 !important;
+            font-family: sans-serif !important;
+        }
+        .operator-btn {
+            width: 60px !important;
+            height: 60px !important;
+            background-color: #fdd835 !important;
+            border: none !important;
+            border-radius: 50% !important;
+            cursor: pointer !important;
+            box-shadow: 0 10px 25px rgba(253, 216, 53, 0.4) !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            transition: transform 0.3s ease !important;
+            float: right !important;
+        }
+        .operator-btn:hover { transform: scale(1.1) !important; }
+        .chat-icon { font-size: 24px !important; color: #000000 !important; }
+        .chat-popup {
+            position: relative !important;
+            margin-bottom: 20px !important;
+            width: 320px !important;
+            background-color: #141414 !important;
+            border: 1px solid #2b2b2b !important;
+            border-radius: 16px !important;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.8) !important;
+            display: none;
+            flex-direction: column !important;
+            overflow: hidden !important;
+        }
+        .chat-header {
+            background-color: #1a1a1a !important;
+            padding: 15px !important;
+            display: flex !important;
+            justify-content: space-between !important;
+            align-items: center !important;
+            border-bottom: 1px solid #2b2b2b !important;
+        }
+        .operator-info { display: flex !important; align-items: center !important; gap: 12px !important; }
+        .operator-avatar { font-size: 22px !important; background-color: #222222 !important; padding: 6px !important; border-radius: 50% !important; }
+        .close-chat { background: transparent !important; border: none !important; color: #888888 !important; font-size: 26px !important; cursor: pointer; padding: 0 !important; line-height: 1 !important; }
+        .close-chat:hover { color: #ffffff !important; }
+        .chat-body { padding: 22px 20px !important; color: #cccccc !important; font-size: 14px !important; line-height: 1.6 !important; background-color: #111111 !important; text-align: left !important; }
+        .chat-body p { color: #cccccc !important; }
+        .chat-footer { padding: 15px !important; background-color: #1a1a1a !important; text-align: center !important; }
+        .tg-chat-btn { display: block !important; background-color: #fdd835 !important; color: #000000 !important; text-decoration: none !important; padding: 14px !important; border-radius: 8px !important; font-weight: 700 !important; font-size: 13px !important; text-transform: uppercase !important; letter-spacing: 0.5px !important; transition: background-color 0.3s ease !important; }
+        .tg-chat-btn:hover { background-color: #ffeb3b !important; }
+    </style>
+
+</head>
+<body>
+
+<nav>
+    <a href="/" style="margin-left: 0; display: flex; align-items: center; padding: 0;">
+        <img src="{% static 'images/logoo.png' %}" alt="Lotus" style="height: 45px; width: auto;">
+    </a>
+
+    <div>
+        <a href="/">Home</a>
+        <a href="/cars/">Products</a>
+        <a href="/test-drive/">Test-drive</a>
+        <a href="/heritage/" style="color: #fdd835; font-weight: 700;">History</a>
+    </div>
+
+    <div>
+        {% if user.is_authenticated %}
+            <button onclick="openProfile()" class="avatar-btn" style="background:none; border:none; cursor:pointer; padding: 0; outline: none;">
+                {% if user.profile.avatar %}
+                    <img src="{{ user.profile.avatar.url }}" style="width:45px; height:45px; border-radius:50%; object-fit:cover;">
+                {% else %}
+                    <div class="avatar-placeholder">👤</div>
+                {% endif %}
+            </button>
+        {% else %}
+            <a href="/accounts/login/">Login</a>
+            <a href="/register/">Register</a>
+        {% endif %}
+    </div>
+</nav>
+
+<div class="container">
+    {% block content %}
+    {% endblock %}
+</div>
+
+<div id="profileSidebar">
+    {% if user.is_authenticated %}
+        <div style="text-align: center; margin-bottom: 30px;">
+             {% if user.profile.avatar %}
+                <img src="{{ user.profile.avatar.url }}" style="width:90px; height:90px; border-radius:50%; object-fit:cover; border: 2px solid #222;">
+            {% endif %}
+            <h2 style="margin-top: 15px; font-weight: 700;">{{ user.username }}</h2>
+            <p style="color: #666; margin-top: -5px; font-size: 14px;">{{ user.email }}</p>
+        </div>
+
+        <a href="/profile/" style="margin: 0; text-decoration: none; display: block;">
+            <button class="btn-edit">Edit profile</button>
+        </a>
+
+        <form method="post" action="/accounts/logout/" style="margin-top: 5px; padding: 0;">
+            {% csrf_token %}
+            <button type="submit" class="btn-logout">Logout</button>
+        </form>
+    {% endif %}
+</div>
+
+<div id="overlay" onclick="closeProfile()"></div>
+
+
+<div class="operator-widget" id="operatorWidget">
+    <div class="chat-popup" id="chatPopup">
+        <div class="chat-header">
+            <div class="operator-info">
+                <div class="operator-avatar">🤖</div>
+                <div>
+                    <h4 style="margin:0; color:#fff; font-size:14px; font-family:sans-serif;">Lotus Assistant</h4>
+                    <p style="margin:2px 0 0; color:#4caf50; font-size:11px; font-weight:700; font-family:sans-serif;">Онлайн • Відповість одразу</p>
+                </div>
+            </div>
+            <button class="close-chat" onclick="toggleChat(event)">&times;</button>
+        </div>
+        <div class="chat-body">
+            <p style="margin:0 0 10px;">Привіт! Я твій персональний онлайн-консультант Lotus.</p>
+            <p style="margin:0;">Потрібна допомога у виборі суперкара чи хочеш записатися на тест-драйв?</p>
+        </div>
+        <div class="chat-footer">
+            <a href="https://t.me/lotus_portfolio_bot" target="_blank" class="tg-chat-btn">
+                 Почати чат у Telegram
+            </a>
+        </div>
+    </div>
+
+    <button class="operator-btn" onclick="toggleChat(event)">
+        <span class="chat-icon">✉️</span>
+    </button>
+</div>
+
+
+
+<script>
+    function openProfile() {
+        document.getElementById("profileSidebar").style.transform = "translateX(-400px)";
+        document.getElementById("overlay").style.display = "block";
+    }
+
+    function closeProfile() {
+        document.getElementById("profileSidebar").style.transform = "translateX(0)";
+        document.getElementById("overlay").style.display = "none";
+    }
+    function toggleChat(event) {
+        event.stopPropagation();
+        const popup = document.getElementById('chatPopup');
+        popup.style.display = (popup.style.display === 'flex') ? 'none' : 'flex';
+    }
+
+    document.addEventListener('click', function(event) {
+        const popup = document.getElementById('chatPopup');
+        const widget = document.getElementById('operatorWidget');
+        if (popup && widget && !widget.contains(event.target)) {
+            popup.style.display = 'none';
+        }
+    });
+
+
+
+</script>
+
+</body>
+</html>

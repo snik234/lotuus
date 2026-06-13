@@ -1,0 +1,233 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="heritage-container">
+    <div class="heritage-header">
+        <h1>LOTUS HERITAGE</h1>
+        <p class="subtitle">Легендарний шлях бренду: від дерев'яного гаража до вершин світового автоспорту.</p>
+    </div>
+
+    <div class="heritage-blocks">
+
+        <div class="heritage-card">
+            <div class="card-image-side">
+                <img src="{% static 'images/heritage/lotus1.jpg' %}" alt="Colin Chapman Garage">
+            </div>
+            <div class="card-text-side">
+                <span class="card-date"> 1948</span>
+                <h3>Зародження легенди (Mark I)</h3>
+                <p>Колін Чепмен збирає свій найперший гоночний автомобіль Mark I у дерев'яному гаражі своєї дівчини. Цей момент назавжди визначив філософію бренду: максимальне полегшення конструкції замість бездумного збільшення потужності двигуна.</p>
+            </div>
+        </div>
+
+        <div class="heritage-card reverse">
+            <div class="card-image-side">
+                <img src="{% static 'images/heritage/lotus_seven.jpg' %}" alt="Lotus Seven Era">
+            </div>
+            <div class="card-text-side">
+                <span class="card-date"> 1957</span>
+                <h3>Культ простоти: Lotus Seven</h3>
+                <p>Запуск виробництва легендарного Lotus Seven — втілення абсолютного мінімалізму. Автомобіль продавався як "кіт-кар" (конструктор для збирання в гаражі), важив менше 500 кг і став іконою трек-днів, яку копіюють у всьому світі донині.</p>
+            </div>
+        </div>
+
+        <div class="heritage-card">
+            <div class="card-image-side">
+                <img src="{% static 'images/heritage/lotus_25.jpg' %}" alt="Lotus F1 Team">
+            </div>
+            <div class="card-text-side">
+                <span class="card-date"> 1962</span>
+                <h3>Революція у Формулі-1</h3>
+                <p>Поява легендарного боліда Lotus 25. Чепмен вперше в історії автоспорту застосував концепцію монокока. Команда Team Lotus починає буквально крушити суперників на світових треках, завойовуючи один титул за іншим.</p>
+            </div>
+        </div>
+
+        <div class="heritage-card reverse">
+            <div class="card-image-side">
+                <img src="{% static 'images/heritage/lotus_espirit.jpg' %}" alt="Lotus Esprit Bond">
+            </div>
+            <div class="card-text-side">
+                <span class="card-date"> 1976</span>
+                <h3>Культовий статус Esprit</h3>
+                <p>Запуск виробництва суперкара Lotus Esprit із граненим дизайном від маэстро Джорджетто Джуджаро. Машина здобуває світовий голлівудський статус після того, як перетворилася на підводний човен у фільмі про Джеймса Бонда "Шпигун, який мене кохав".</p>
+            </div>
+        </div>
+
+        <div class="heritage-card">
+            <div class="card-image-side">
+                <img src="{% static 'images/heritage/lotus_elise.jpg' %}" alt="Lotus Elise Innovation">
+            </div>
+            <div class="card-text-side">
+                <span class="card-date">🏎 1996</span>
+                <h3>Рятівник бренду: Lotus Elise</h3>
+                <p>У середині 90-х Lotus випускає Elise — революційний спорткар із кузовом із клеєного екструдованого алюмінію. Ця технологія перевернула автоіндустрію. Легкий, спартанський і неймовірно слухняний Elise врятував компанію від банкрутства.</p>
+            </div>
+        </div>
+
+        <div class="heritage-card reverse">
+            <div class="card-image-side">
+                <img src="{% static 'images/heritage/lotus_eletre.jpg' %}" alt="Lotus Electric Future">
+            </div>
+            <div class="card-text-side">
+                <span class="card-date"> 2020+</span>
+                <h3>Електричне майбутнє</h3>
+                <p>Lotus оголошує про повний перехід на чисту електротягу. Бред шокує світ гіперкаром Evija потужністю 2000 к.с. та випускає свої перші люксові електричні кросовери Eletre та седани Emeya, повністю зберігаючи еталонну трекову керованість.</p>
+            </div>
+        </div>
+
+<footer class="main-footer">
+    <div class="footer-container">
+        <div class="footer-brand-section">
+            <h3 class="footer-logo">LOTUS</h3>
+            <p class="footer-tagline">For The Drivers.</p>
+        </div>
+
+        <div class="footer-links-section">
+            <div class="footer-link-group">
+                <h4>Models</h4>
+                <a href="/cars/1/">Emira</a>
+                <a href="/cars/2/">Esprit</a>
+                <a href="/cars/3/">Evija</a>
+            </div>
+            <div class="footer-link-group">
+                <h4>Company</h4>
+                <a href="{% url 'heritage' %}">Our Story</a>
+                <a href="/cars/">Motorsport</a>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; 2026 Lotus Project. All rights reserved.</p>
+    </div>
+</footer>
+
+
+<style>
+
+    html, body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: #000;
+    }
+
+    .main-footer {
+        background-color: #050505 !important;
+        border-top: 1px solid #141414 !important;
+        padding: 20px 40px 15px !important;
+        max-height: 200px !important;
+
+        color: #fff !important;
+        font-family: sans-serif !important;
+        text-align: left !important;
+        width: 100vw !important;
+        position: relative !important;
+        left: 50% !important;
+        right: 50% !important;
+        margin-left: -50vw !important;
+        margin-right: -50vw !important;
+        box-sizing: border-box !important;
+        margin-top: auto !important;
+    }
+
+    .footer-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 40px;
+        width: 100%;
+    }
+
+    .footer-brand-section .footer-logo {
+        font-size: 28px;
+        font-weight: 800;
+        letter-spacing: 4px;
+        margin: 0 0 10px 0;
+    }
+
+    .footer-brand-section .footer-tagline {
+        color: #444;
+        font-size: 13px;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        margin: 0;
+    }
+
+    .footer-links-section {
+        display: flex;
+        gap: 80px;
+    }
+
+    .footer-link-group h4 {
+        font-size: 13px;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        color: #666;
+        margin: 0 0 20px 0;
+    }
+
+    .footer-link-group a {
+        display: block;
+        color: #888;
+        text-decoration: none;
+        font-size: 14px;
+        margin-bottom: 12px;
+        transition: color 0.2s ease;
+    }
+
+    .footer-link-group a:hover {
+        color: #fdd835;
+    }
+
+    .footer-bottom {
+        max-width: 1100px;
+        margin: 40px auto 0;
+        padding-top: 25px;
+        border-top: 1px solid #141414;
+        text-align: center;
+        color: #444;
+        font-size: 13px;
+    }
+
+
+
+
+    .heritage-container { max-width: 1100px; margin: 0 auto; padding: 60px 20px; font-family: sans-serif; }
+    .heritage-header { text-align: center; margin-bottom: 60px; }
+    .heritage-header h1 { color: #fff; font-size: 42px; font-weight: 800; letter-spacing: 2px; margin: 0 0 10px 0; }
+    .heritage-header .subtitle { color: #666; font-size: 16px; }
+
+    .heritage-blocks { display: flex; flex-direction: column; gap: 40px; }
+
+    .heritage-card {
+        display: flex;
+        background: #141414;
+        border: 1px solid #222;
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+        transition: border-color 0.3s ease;
+    }
+    .heritage-card:hover { border-color: #fdd835; }
+    .heritage-card.reverse { flex-direction: row-reverse; }
+
+    .card-image-side { flex: 1; min-width: 45%; max-height: 320px; overflow: hidden; background: #000; }
+    .card-image-side img { width: 100%; height: 100%; object-fit: cover; opacity: 0.8; transition: transform 0.5s ease; }
+    .heritage-card:hover .card-image-side img { transform: scale(1.05); opacity: 1; }
+
+    .card-text-side { flex: 1; padding: 40px; display: flex; flex-direction: column; justify-content: center; text-align: left; }
+    .card-date { color: #fdd835; font-size: 20px; font-weight: 800; margin-bottom: 12px; display: inline-block; }
+    .card-text-side h3 { color: #fff; font-size: 22px; margin: 0 0 15px 0; font-weight: 700; }
+    .card-text-side p { color: #aaa; font-size: 15px; line-height: 1.7; margin: 0; }
+
+    @media (max-width: 768px) {
+        .heritage-card, .heritage-card.reverse { flex-direction: column; }
+        .card-text-side { padding: 30px; }
+    }
+</style>
+{% endblock %}
