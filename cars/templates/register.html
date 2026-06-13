@@ -128,5 +128,36 @@
     .auth-action-btn:active {
         transform: translateY(0);
     }
+
+
+
+    @media (max-width: 768px) {
+        .auth-container-wrapper {
+            min-height: 100vh !important;
+            padding: 15px !important;
+        }
+
+        .auth-card-box {
+            width: 100% !important;
+            max-width: 360px !important;
+            padding: 30px 20px !important;
+        }
+
+        .auth-main-title {
+            font-size: 26px !important;
+            margin-bottom: 25px !important;
+        }
+
+        .auth-form-fields-wrapper p input {
+            padding: 14px 12px !important;
+            font-size: 16px !important;
+        }
+
+        .auth-action-btn {
+            padding: 15px !important;
+            font-size: 15px !important;
+            margin-top: 15px !important;
+        }
+    }
 </style>
 {% endblock %}

@@ -349,50 +349,49 @@
     @media (max-width: 768px) {
 
     .navbar, header {
-        flex-direction: column !important; /* Выстраиваем логотип и ссылки вертикально */
+        flex-direction: column !important;
         padding: 10px !important;
         gap: 10px !important;
     }
 
     .nav-links, .navbar-nav {
         display: grid !important;
-        grid-template-columns: repeat(3, 1fr) !important; /* Делаем красивую сетку 3 на 2 */
+        grid-template-columns: repeat(3, 1fr) !important;
         gap: 8px !important;
         width: 100% !important;
         text-align: center !important;
     }
 
     .nav-links a, .navbar-nav a {
-        font-size: 13px !important; /* Уменьшаем шрифт, чтобы всё влезло */
+        font-size: 13px !important;
         padding: 6px 4px !important;
         display: block !important;
-        white-space: nowrap !important; /* Запрещаем перенос слов */
+        white-space: nowrap !important;
     }
 
     .hero-section {
-        height: 60vh !important; /* Уменьшаем высоту главного баннера на телефоне */
-        padding-left: 5% !important; /* Сдвигаем текст ближе к центру */
+        height: 60vh !important;
+        padding-left: 5% !important;
     }
 
     .hero-title {
-        font-size: 42px !important; /* Уменьшаем гигантский заголовок "Lotus Cars" */
-    }
+        font-size: 42px !important;
 
     .hero-subtitle {
         font-size: 14px !important;
     }
 
     .section-title, .about-title {
-        font-size: 28px !important; /* Оптимальный размер для чтения с телефона */
+        font-size: 28px !important;
     }
 
     .video-slider-container {
-        height: 320px !important; /* Делаем высоту слайдера меньше */
+        height: 320px !important;
         margin: 20px auto 0 !important;
     }
 
     .slider-content-box {
-        padding-left: 20px !important; /* Убираем огромный левый отступ */
+        padding-left: 20px !important;
         padding-right: 20px !important;
         max-width: 100% !important;
     }
@@ -412,6 +411,28 @@
         width: 90% !important;
         padding: 20px !important;
         margin: 20px auto !important;
+    }
+
+    .auth-card-box, .login-card {
+        width: 90% !important;
+        max-width: 360px !important;
+        padding: 30px 20px !important;
+        margin: 0 auto !important;
+    }
+
+    .auth-main-title, .login-title {
+        font-size: 26px !important;
+        margin-bottom: 20px !important;
+    }
+
+    .auth-form-fields-wrapper p input, .input-group input {
+        padding: 14px 12px !important;
+        font-size: 16px !important;
+    }
+
+    .auth-action-btn, .login-submit-btn {
+        padding: 14px !important;
+        font-size: 15px !important;
     }
 }
 
