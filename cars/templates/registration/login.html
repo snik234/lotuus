@@ -1,3 +1,7 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
 <div class="login-wrapper">
     <div class="login-card">
         <h2 class="login-title">Login</h2>
@@ -5,7 +9,6 @@
         <form method="post" class="login-form">
             {% csrf_token %}
             
-            <!-- Если вы выводите форму через {{ form.as_p }}, лучше расписать поля вручную для красоты -->
             <div class="input-group">
                 <label for="id_username">Username</label>
                 <input type="text" name="username" id="id_username" placeholder="Enter your username" required>
@@ -121,23 +124,15 @@
             min-height: 100vh !important;
             padding: 15px !important;
         }
-
         .auth-card-box {
             width: 100% !important;
             max-width: 360px !important;
             padding: 30px 20px !important;
         }
-
-        .auth-main-title {
-            font-size: 26px !important;
-            margin-bottom: 25px !important;
-        }
-
         .auth-form-fields-wrapper p input {
             padding: 14px 12px !important;
             font-size: 16px !important;
         }
-
         .auth-action-btn {
             padding: 15px !important;
             font-size: 15px !important;
@@ -145,3 +140,4 @@
         }
     }
 </style>
+{% endblock %}
