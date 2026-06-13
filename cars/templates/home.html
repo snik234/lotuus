@@ -348,6 +348,27 @@
 
     @media (max-width: 768px) {
 
+    .navbar, header {
+        flex-direction: column !important; /* Выстраиваем логотип и ссылки вертикально */
+        padding: 10px !important;
+        gap: 10px !important;
+    }
+
+    .nav-links, .navbar-nav {
+        display: grid !important;
+        grid-template-columns: repeat(3, 1fr) !important; /* Делаем красивую сетку 3 на 2 */
+        gap: 8px !important;
+        width: 100% !important;
+        text-align: center !important;
+    }
+
+    .nav-links a, .navbar-nav a {
+        font-size: 13px !important; /* Уменьшаем шрифт, чтобы всё влезло */
+        padding: 6px 4px !important;
+        display: block !important;
+        white-space: nowrap !important; /* Запрещаем перенос слов */
+    }
+
     .hero-section {
         height: 60vh !important; /* Уменьшаем высоту главного баннера на телефоне */
         padding-left: 5% !important; /* Сдвигаем текст ближе к центру */
