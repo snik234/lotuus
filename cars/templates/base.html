@@ -1,19 +1,21 @@
+<!DOCTYPE html>
 {% load static %}
-<html>
+<html lang="ru">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lotus Project</title>
     <link rel="stylesheet" href="{% static 'css/style.css' %}?v=1.1">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<style>
-    .operator-widget {
+    <style>
+        .operator-widget {
             position: fixed !important;
             bottom: 30px !important;
             right: 30px !important;
             z-index: 999999 !important;
             font-family: sans-serif !important;
-    }
-    .operator-btn {
+        }
+        .operator-btn {
             width: 60px !important;
             height: 60px !important;
             background-color: #fdd835 !important;
@@ -26,10 +28,10 @@
             justify-content: center !important;
             transition: transform 0.3s ease !important;
             float: right !important;
-    }
-    .operator-btn:hover { transform: scale(1.1) !important; }
-    .chat-icon { font-size: 24px !important; color: #000000 !important; }
-    .chat-popup {
+        }
+        .operator-btn:hover { transform: scale(1.1) !important; }
+        .chat-icon { font-size: 24px !important; color: #000000 !important; }
+        .chat-popup {
             position: relative !important;
             margin-bottom: 20px !important;
             width: 320px !important;
@@ -40,15 +42,15 @@
             display: none;
             flex-direction: column !important;
             overflow: hidden !important;
-    }
-    .chat-header {
+        }
+        .chat-header {
             background-color: #1a1a1a !important;
             padding: 15px !important;
             display: flex !important;
             justify-content: space-between !important;
             align-items: center !important;
             border-bottom: 1px solid #2b2b2b !important;
-    }
+        }
         .operator-info { display: flex !important; align-items: center !important; gap: 12px !important; }
         .operator-avatar { font-size: 22px !important; background-color: #222222 !important; padding: 6px !important; border-radius: 50% !important; }
         .close-chat { background: transparent !important; border: none !important; color: #888888 !important; font-size: 26px !important; cursor: pointer; padding: 0 !important; line-height: 1 !important; }
@@ -59,41 +61,40 @@
         .tg-chat-btn { display: block !important; background-color: #fdd835 !important; color: #000000 !important; text-decoration: none !important; padding: 14px !important; border-radius: 8px !important; font-weight: 700 !important; font-size: 13px !important; text-transform: uppercase !important; letter-spacing: 0.5px !important; transition: background-color 0.3s ease !important; }
         .tg-chat-btn:hover { background-color: #ffeb3b !important; }
 
+        @media (max-width: 768px) {
+            nav, .navbar, header, [class*="nav"] {
+                display: flex !important;
+                flex-direction: column !important;
+                align-items: center !important;
+                justify-content: center !important;
+                padding: 15px 10px !important;
+                height: auto !important;
+                gap: 15px !important;
+            }
 
-    @media (max-width: 768px) {
-        nav, .navbar, header, [class*="nav"] {
-            display: flex !important;
-            flex-direction: column !important;
-            align-items: center !important;
-            justify-content: center !important;
-            padding: 15px 10px !important;
-            height: auto !important;
-            gap: 15px !important;
-        }
+            /* Изменено на 2 колонки, чтобы ссылки и кнопки "Login/Register" аккуратно помещались по ширине */
+            nav div, .nav-links, .navbar-nav, ul[class*="nav"] {
+                display: grid !important;
+                grid-template-columns: repeat(2, 1fr) !important;
+                gap: 12px 10px !important;
+                width: 100% !important;
+                max-width: 100% !important;
+                justify-content: center !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                list-style: none !important;
+            }
 
-        nav div, .nav-links, .navbar-nav, ul[class*="nav"] {
-            display: grid !important;
-            grid-template-columns: repeat(3, 1fr) !important;
-            gap: 12px 10px !important;
-            width: 100% !important;
-            max-width: 100% !important;
-            justify-content: center !important;
-            padding: 0 !important;
-            margin: 0 !important;
-            list-style: none !important;
+            nav a, .nav-links a, .navbar-nav a, ul[class*="nav"] a {
+                font-size: 14px !important;
+                text-align: center !important;
+                padding: 8px 4px !important;
+                display: block !important;
+                white-space: nowrap !important;
+                line-height: 1.2 !important;
+            }
         }
-
-        nav a, .nav-links a, .navbar-nav a, ul[class*="nav"] a {
-            font-size: 14px !important;
-            text-align: center !important;
-            padding: 6px 4px !important;
-            display: block !important;
-            white-space: nowrap !important;
-            line-height: 1.2 !important;
-        }
-    }
     </style>
-
 </head>
 <body>
 
@@ -153,7 +154,6 @@
 
 <div id="overlay" onclick="closeProfile()"></div>
 
-
 <div class="operator-widget" id="operatorWidget">
     <div class="chat-popup" id="chatPopup">
         <div class="chat-header">
@@ -182,8 +182,6 @@
     </button>
 </div>
 
-
-
 <script>
     function openProfile() {
         document.getElementById("profileSidebar").style.transform = "translateX(-400px)";
@@ -194,23 +192,16 @@
         document.getElementById("profileSidebar").style.transform = "translateX(0)";
         document.getElementById("overlay").style.display = "none";
     }
+
     function toggleChat(event) {
-        event.stopPropagation();
-        const popup = document.getElementById('chatPopup');
-        popup.style.display = (popup.style.display === 'flex') ? 'none' : 'flex';
-    }
-
-    document.addEventListener('click', function(event) {
-        const popup = document.getElementById('chatPopup');
-        const widget = document.getElementById('operatorWidget');
-        if (popup && widget && !widget.contains(event.target)) {
-            popup.style.display = 'none';
+        event.preventDefault();
+        const popup = document.getElementById("chatPopup");
+        if (popup.style.display === "flex") {
+            popup.style.display = "none";
+        } else {
+            popup.style.display = "flex";
         }
-    });
-
-
-
+    }
 </script>
-
 </body>
 </html>
