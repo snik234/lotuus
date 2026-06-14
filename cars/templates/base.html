@@ -110,9 +110,12 @@
             <button class="btn-edit">Edit profile</button>
         </a>
 
-        <form method="post" action="/accounts/logout/" style="margin-top: 5px; padding: 0;">
+        <form method="post" action="/accounts/logout/" style="margin-top: 15px; padding: 0; width: 100%;">
             {% csrf_token %}
-            <button type="submit" class="btn-logout">Logout</button>
+            <input type="hidden" name="next" value="/"> <!-- Возвращает на главную после выхода -->
+            <button type="submit" class="btn-logout" style="width: 100%; display: block; cursor: pointer; padding: 12px; font-weight: bold;">
+                Logout
+            </button>
         </form>
     {% endif %}
 </div>
