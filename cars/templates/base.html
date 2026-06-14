@@ -1,11 +1,9 @@
-<!DOCTYPE html>
 {% load static %}
-<html lang="ru">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lotus Project</title>
     <link rel="stylesheet" href="{% static 'css/style.css' %}?v=1.1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <style>
         .operator-widget {
@@ -60,76 +58,8 @@
         .chat-footer { padding: 15px !important; background-color: #1a1a1a !important; text-align: center !important; }
         .tg-chat-btn { display: block !important; background-color: #fdd835 !important; color: #000000 !important; text-decoration: none !important; padding: 14px !important; border-radius: 8px !important; font-weight: 700 !important; font-size: 13px !important; text-transform: uppercase !important; letter-spacing: 0.5px !important; transition: background-color 0.3s ease !important; }
         .tg-chat-btn:hover { background-color: #ffeb3b !important; }
-
-        @media (max-width: 768px) {
-            nav, .navbar, header, [class*="nav"] {
-                display: flex !important;
-                flex-direction: column !important;
-                align-items: center !important;
-                justify-content: center !important;
-                padding: 15px 10px !important;
-                height: auto !important;
-                gap: 15px !important;
-            }
-
-            nav div, .nav-links, .navbar-nav, ul[class*="nav"] {
-                display: grid !important;
-                grid-template-columns: repeat(2, 1fr) !important; /* Две аккуратные колонки */
-                gap: 12px 10px !important;
-                width: 100% !important;
-                max-width: 100% !important;
-                justify-content: center !important;
-                padding: 0 !important;
-                margin: 0 !important;
-                list-style: none !important;
-            }
-
-            nav a, .nav-links a, .navbar-nav a, ul[class*="nav"] a {
-                font-size: 14px !important;
-                text-align: center !important;
-                padding: 8px 4px !important;
-                display: block !important;
-                white-space: nowrap !important;
-                line-height: 1.2 !important;
-            }
-
-            body, html, .container, main {
-                overflow-x: hidden !important;
-                max-width: 100% !important;
-                width: 100% !important;
-            }
-
-            h1, h2, [class*="title"], [class*="name"] {
-                font-size: 28px !important; /* Компактный размер для мобильного */
-                text-align: center !important;
-                white-space: normal !important; /* Разрешаем перенос длинных названий */
-                word-wrap: break-word !important;
-                margin-bottom: 15px !important;
-            }
-
-            div:has(> button), div:has(> a[class*="btn"]), [class*="button-container"], [class*="actions"] {
-                display: flex !important;
-                flex-direction: column !important; /* Кнопки встанут вертикально */
-                gap: 10px !important;
-                width: 100% !important;
-                padding: 0 20px !important;
-                box-sizing: border-box !important;
-            }
-
-            nav + div button, .container button, .container a[class*="btn"], button[class*="order"], button[class*="details"], a[href*="order"] {
-                width: 100% !important;
-                max-width: 100% !important;
-                min-width: 0 !important;
-                box-sizing: border-box !important;
-                margin: 0 !important;
-                padding: 12px 20px !important; /* Удобный размер для нажатия пальцем */
-            }
-
-            [class*="prev"], [class*="next"], [class*="arrow"], .slider-btn, button:has(svg) {
-                transform: scale(0.85) !important; /* Слегка уменьшаем стрелки */
-            }
-        }
     </style>
+
 </head>
 <body>
 
@@ -189,6 +119,7 @@
 
 <div id="overlay" onclick="closeProfile()"></div>
 
+
 <div class="operator-widget" id="operatorWidget">
     <div class="chat-popup" id="chatPopup">
         <div class="chat-header">
@@ -217,6 +148,8 @@
     </button>
 </div>
 
+
+
 <script>
     function openProfile() {
         document.getElementById("profileSidebar").style.transform = "translateX(-400px)";
@@ -227,16 +160,23 @@
         document.getElementById("profileSidebar").style.transform = "translateX(0)";
         document.getElementById("overlay").style.display = "none";
     }
-
     function toggleChat(event) {
-        event.preventDefault();
-        const popup = document.getElementById("chatPopup");
-        if (popup.style.display === "flex") {
-            popup.style.display = "none";
-        } else {
-            popup.style.display = "flex";
-        }
+        event.stopPropagation();
+        const popup = document.getElementById('chatPopup');
+        popup.style.display = (popup.style.display === 'flex') ? 'none' : 'flex';
     }
+
+    document.addEventListener('click', function(event) {
+        const popup = document.getElementById('chatPopup');
+        const widget = document.getElementById('operatorWidget');
+        if (popup && widget && !widget.contains(event.target)) {
+            popup.style.display = 'none';
+        }
+    });
+
+
+
 </script>
+
 </body>
 </html>
