@@ -451,19 +451,17 @@
         {% for car in cars %}
         {
             id: {{ car.id }},
-            title: "{{ car.brand }} {{ car.category }} {{ car.year|default:'' }}",
+            title: "{{ car.title }}",
             detailsUrl: "/cars/{{ car.id }}/",
             imageUrl: "{{ car.image.url }}",
-            carNameLower: "{{ car.brand|lower }} {{ car.category|lower }}",
 
-            videoUrl: "{% if car.video %}{{ car.video.url }}{% elif 'esprit' in car.brand.lower or 'esprit' in car.category.lower %}{% static 'videos/lotus_esprit_se.mp4' %}{% elif 'evija' in car.brand.lower or 'evija' in car.category.lower %}{% static 'videos/evija.mp4' %}{% elif 'lotus' in car.brand.lower %}{% static 'videos/emira_first.mp4' %}{% else %}{% endif %}",
+            videoUrl: "{% if car.video %}{{ car.video.url }}{% elif 'esprit' in car.title.lower %}{% static 'videos/lotus_esprit_se.mp4' %}{% elif 'evija' in car.title.lower %}{% static 'videos/evija.mp4' %}{% elif 'lotus' in car.title.lower or 'emira' in car.title.lower or 'eletre' in car.title.lower %}{% static 'videos/emira_first.mp4' %}{% else %}{% endif %}",
 
-            badgeText: "{% if 'esprit' in car.brand.lower or 'esprit' in car.category.lower %}• CLASSIC LEGEND{% elif 'eletre' in car.brand.lower or 'eletre' in car.category.lower %}• 100% ELECTRIC{% else %}• TRACK READY{% endif %}",
-            badgeClass: "{% if 'esprit' in car.brand.lower or 'esprit' in car.category.lower %}badge-orange{% elif 'eletre' in car.brand.lower or 'eletre' in car.category.lower %}badge-blue{% else %}badge-yellow{% endif %}"
+            badgeText: "{% if 'esprit' in car.title.lower %}• CLASSIC LEGEND{% elif 'eletre' in car.title.lower %}• 100% ELECTRIC{% else %}• TRACK READY{% endif %}",
+            badgeClass: "{% if 'esprit' in car.title.lower %}badge-orange{% elif 'eletre' in car.title.lower %}badge-blue{% else %}badge-yellow{% endif %}"
         }{% if not forloop.last %},{% endif %}
         {% endfor %}
     ];
-
     let currentSlideIndex = 0;
 
     function updateSlider() {
