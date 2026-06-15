@@ -237,7 +237,8 @@ def heritage(request):
 def delete_car(request, car_id):
     car = get_object_or_404(Car, id=car_id)
 
-    if request.user.is_staff:
+    if request.user.is_staff or car.owner == request.user:
         car.delete()
+        return redirect('/cars/')
 
     return redirect('/')

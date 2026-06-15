@@ -39,13 +39,6 @@
                 <button id="slideOrderBtn" class="btn-order" onclick="openOrderModalFromSlider()">Order</button>
             </div>
 
-            {% if request.user.is_staff %}
-            <div style="margin-top: 15px;">
-                <a id="slideDeleteBtn" href="#" onclick="return confirm('Ви впевнені, що хочете видалити цей автомобіль?');" style="color: #ff4d4d; font-size: 13px; font-weight: 700; text-decoration: none; display: inline-block; border: 1px solid #ff4d4d; padding: 6px 12px; border-radius: 4px; background: rgba(255,77,77,0.1); width: calc(100% - 2px); text-align: center; box-sizing: border-box;">
-                     Видалити авто
-                </a>
-            </div>
-            {% endif %}
         </div>
     </div>
 
@@ -483,8 +476,6 @@
 
             if (titleEl) titleEl.innerText = currentData.title;
             if (detailsBtn) detailsBtn.href = currentData.detailsUrl;
-
-            if (deleteBtn) deleteBtn.href = "/cars/delete/" + currentData.id + "/";
 
             if (badgeEl) {
                 badgeEl.innerText = currentData.badgeText;
