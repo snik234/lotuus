@@ -45,7 +45,7 @@ def home(request):
         messages.success(request, f'Дякуємо, {name}! Вашу заявку на {car_title} успішно надіслано.')
         return redirect('/')
 
-    return render(request, 'index.html', {'cars': cars})
+    return render(request, 'home.html', {'cars': cars})
 
 def car_list(request):
     cars = Car.objects.all().order_by('-created_at')
