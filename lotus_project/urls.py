@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from cars.views import home, car_list, car_detail, profile, register, edit_profile, test_drive, add_car, heritage, views, delete_car
+from cars.views import home, car_list, car_detail, profile, register, edit_profile, test_drive, add_car, heritage, delete_car
 
 
 from django.conf import settings
