@@ -17,6 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from cars.views import home, car_list, car_detail, profile, register, edit_profile, test_drive, add_car, heritage
+from . import views
 
 
 from django.conf import settings
@@ -34,6 +35,7 @@ urlpatterns = [
     path('test-drive/', test_drive, name='test_drive'),
     path('cars/add/', add_car, name='add_car'),
     path('heritage/', heritage, name='heritage'),
+    path('cars/delete/<int:car_id>/', views.delete_car, name='delete_car'),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

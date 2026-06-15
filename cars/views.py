@@ -12,7 +12,7 @@ from .forms import CarForm, MultipleImageForm
 from .models import CarImage
 
 def home(request):
-    cars = Car.objects.all().order_by('-created_at')[:3]
+    cars = Car.objects.order_by('-id')[:3]
 
     if request.method == 'POST':
         name = request.POST.get('name')
@@ -45,7 +45,7 @@ def home(request):
         messages.success(request, f'Дякуємо, {name}! Вашу заявку на {car_title} успішно надіслано.')
         return redirect('/')
 
-    return render(request, 'home.html', {"cars": cars})
+    return render(request, 'index.html', {'cars': cars})
 
 def car_list(request):
     cars = Car.objects.all().order_by('-created_at')
@@ -231,3 +231,13 @@ def add_car(request):
 
 def heritage(request):
     return render(request, 'heritage.html')
+
+
+@login_required
+def delete_car(request, car_id):
+    car = get_object_or_404(Car, id=car_id)
+
+    if request.user.is_staff:
+        car.delete()
+
+    return redirect('/')
