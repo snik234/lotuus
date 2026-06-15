@@ -82,13 +82,12 @@
 
 
 {% if request.user.is_staff or car.owner == request.user %}
-<div style="margin: 30px auto 10px; text-align: center; width: 100%;">
+<div style="margin: 25px auto 40px; text-align: center; width: 100%;">
     <a href="{% url 'delete_car' car.id %}" onclick="return confirm('Ви впевнені, що хочете видалити це оголошення про продаж?');" style="color: #ff4d4d; font-size: 13px; font-weight: 700; text-decoration: none; display: inline-block; border: 1px solid #ff4d4d; padding: 10px 24px; border-radius: 6px; background: rgba(255,77,77,0.06); width: 100%; max-width: 280px; box-sizing: border-box; transition: all 0.3s ease; text-transform: uppercase; letter-spacing: 0.5px;" onmouseover="this.style.background='rgba(255,77,77,0.15)'; this.style.boxShadow='0 4px 15px rgba(255,77,77,0.15)'" onmouseout="this.style.background='rgba(255,77,77,0.06)'; this.style.boxShadow='none'">
          Видалити оголошення
     </a>
 </div>
 {% endif %}
-
 
 
 <style>
